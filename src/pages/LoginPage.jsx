@@ -1,31 +1,38 @@
 import React, { useState } from "react";
 import InputMask from "react-input-mask";
-import Select from "react-select";
-import { countryOptions as countries } from "./countriesNum";
+import countries from "./countriesNum";
 import "../styles/pages/login_page.css";
 import arrowBack from "../images/arrow-left.svg";
+import arrowDown from "../images/drop-down.svg";
 
 const LoginPage = () => {
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [currentView, setCurrentView] = useState("form1");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleRequestCode = () => {
     setCurrentView("form2");
-    // Trigger code request logic
   };
 
   const handleVerifyCode = () => {
-    // Verify code logic
+    // Verification logic here
   };
 
   const handleResendCode = () => {
-    // Resend code logic
+    // Resend code logic here
   };
 
   const handleBack = () => {
     setCurrentView("form1");
+  };
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  const selectCountry = (country) => {
+    setSelectedCountry(country);
+    setDropdownOpen(false);
   };
 
   const fullPhoneNumber = selectedCountry.value + phone;
@@ -41,26 +48,52 @@ const LoginPage = () => {
               <h2 className="form-text">
                 Введите номер телефона, на который придет код
               </h2>
-              <div className="login-input-group">
-                <Select
-                  value={selectedCountry}
-                  onChange={setSelectedCountry}
-                  options={countries}
-                  className="country-select"
-                  isSearchable={false}
-                />
-                <div className="phone-input-group">
-                  <span className="country-code">{selectedCountry.value}</span>
-                  <InputMask
-                    mask={selectedCountry.phoneMask}
-                    value={phone}
-                    onChange={(e) =>
-                      setPhone(e.target.value.replace(/\D/g, ""))
-                    }
-                    placeholder="(555) 555 555"
-                    className="phone-input"
-                  />
+              <h5 className="input-title">Номер телефона</h5>
+              <div className="country-phone-group">
+                <div className="country-select-dropdown">
+                  <button
+                    className="country-select-toggle"
+                    onClick={toggleDropdown}
+                  >
+                    <img
+                      className="country-flag"
+                      src={selectedCountry.flagUrl}
+                      alt=""
+                    />
+                    <img
+                      className="country-select-arrow"
+                      src={arrowDown}
+                      alt="Open"
+                    />
+                  </button>
+                  {dropdownOpen && (
+                    <ul className="country-select-options">
+                      {countries.map((country, index) => (
+                        <li
+                          key={index}
+                          onClick={() => selectCountry(country)}
+                          className="country-select-option"
+                        >
+                          <img
+                            className="country-flag"
+                            src={country.flagUrl}
+                            alt={country.label}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
+                <div className="static-country-code">
+                  {selectedCountry.value}
+                </div>
+                <InputMask
+                  mask={selectedCountry.phoneMask}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                  placeholder="(555) 555 555"
+                  className="phone-input"
+                />
               </div>
               <button
                 className="request-code-button"
@@ -76,7 +109,7 @@ const LoginPage = () => {
           <div className="login-form">
             <div className="login-form-header">
               <button onClick={handleBack} className="back-button">
-                <img src={arrowBack} />
+                <img src={arrowBack} alt="Back" />
               </button>
               <h2 className="login-form-header-title">
                 Введите код подтверждения
@@ -94,8 +127,12 @@ const LoginPage = () => {
                 placeholder="Код из SMS"
                 className="code-input"
               />
-              <button onClick={handleVerifyCode}>Войти</button>
-              <button onClick={handleResendCode}>Отправить повторно</button>
+              <button onClick={handleVerifyCode} className="enter-button">
+                Войти
+              </button>
+              <button onClick={handleResendCode} className="resend-button">
+                Отправить повторно
+              </button>
             </div>
           </div>
         )}

@@ -1,8 +1,11 @@
-// countries.js
+import kyrgyzstanFlag from '../images/kyrgyzstan-flag-icon.svg';
+import russiaFlag from '../images/russia-flag-icon.svg';
+import usFlag from '../images/united-states-flag-icon.svg';
+
 export const countryOptions = [
-    { label: '1', value: '+996', flagUrl: '../images/kyrgyzstan-flag-icon.svg', phoneMask: '(999) 999-999' },
-    { label: '2', value: '+7', flagUrl: 'path/to/kyrgyzstan-flag.png', phoneMask: '(999) 999-9999' },
-    { label: '3', value: '+100', flagUrl: 'path/to/kyrgyzstan-flag.png', phoneMask: '(9) 99-999' },
-    { label: '3', value: '+714', flagUrl: 'path/to/kyrgyzstan-flag.png', phoneMask: '(999) 999-999' },
-  ];
-  
+  { label: 'Kyrgyzstan', value: '+996', flagUrl: kyrgyzstanFlag, phoneMask: '(999) 999-999' },
+  { label: 'Russia', value: '+7', flagUrl: russiaFlag, phoneMask: '(999) 999-9999' },
+  { label: 'United States', value: '+1', flagUrl: usFlag, phoneMask: '(999) 999-9999' },
+];
+
+export default countryOptions;

@@ -18,8 +18,7 @@
     justify-content: center;
     align-items: center;
   }
-  
-  /* Styling the form and its elements */
+
   .login-form {
     background: white;
     border-radius: 20px;
@@ -63,71 +62,120 @@
   }
 
   .form-content {
-    padding: 24px;
+    padding: 50px;
   }
   
   .form-title {
+    margin: 0;
+    margin-bottom: 30px;
     font-size: 72px;
     font-weight: 700;
   }
 
-  .login-input-group {
-    background-color: #0066ff;
-    display: flex;
-    align-items: center;
-    height: 70px;
-    width: 100%;
+  .input-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8F8F8F;
+    margin-bottom: 10px;
   }
 
-  .country-select {
-    display: flex;
-    justify-content: center;
-    height: 70px;
-    width: 104px;
-    background-color: #d87350;
-  }
-  
-  /* Phone input group styling */
-  .phone-input-group {
+  .country-phone-group {
     display: flex;
     width: 100%;
+    margin: 0 auto;
+    background-color: #EDEDED;
     height: 70px;
+    border-radius: 10px;
+    align-items: center;
+    margin-bottom: 10px;
   }
   
-  .country-code {
-    background-color: #eee;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
-    border-right: none; /* To make it look attached to the input field */
+  .static-country-code {
+    margin-left: 70px;
+    margin-right: 3px;
+    font-size: 22px;
+  }
+
+  .phone-input {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+  
+  .country-select-dropdown {
+    position: relative;
+    display: flex;
+  }
+  
+  .country-select-toggle {
+    background-color: #EDEDED;
+    border-right: 1px solid #C1C1C3;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 104px;
+    height: 70px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .country-select-arrow {
+    margin-left: 15px;
+  }
+
+  .country-select-options {
+    position: absolute;
+    border-bottom-left-radius: 4px;
+    top: 44px;
+    width: 103px;
+    padding: 0;
+    background-color: #EDEDED;
+    padding-top: 10px;
+  }
+
+  .country-select-option {
+    padding: 10px;
+    padding-left: 15px;
+    background-color: #EDEDED;
     display: flex;
     align-items: center;
-    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .country-select-option:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
   
-  .phone-input {
-    flex: 1;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
+  .country-select-option:hover {
+    background-color: #C1C1C3;
   }
   
-  /* Button styling */
+  .country-flag {
+    width: 32px;
+    height: 24px; 
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  
   button {
-    background-color: #ff6a00; /* Orange background */
+    background-color: #FFC1A8; /* Orange background */
     color: white;
     border: none;
-    padding: 10px 15px;
     margin-top: 10px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 22px;
     width: 100%;
+    height: 70px;
     box-sizing: border-box;
-    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
   }
-  
-  /* Back button specific styling *
-  
   
   /* Resend code button styling */
   button.resend-code {
