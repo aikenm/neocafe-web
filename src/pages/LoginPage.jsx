@@ -26,6 +26,7 @@ const LoginPage = () => {
 
   const handleBack = () => {
     setCurrentView("form1");
+    setCode("");
   };
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -96,8 +97,9 @@ const LoginPage = () => {
                 />
               </div>
               <button
-                className="request-code-button"
+                className="login-button"
                 onClick={handleRequestCode}
+                disabled={phone.trim().length === 0}
               >
                 Получить код
               </button>
@@ -120,14 +122,19 @@ const LoginPage = () => {
               <h2 className="form-text">
                 Код подтверждения был отправлен на номер {fullPhoneNumber}
               </h2>
+              <h5 className="input-title">Код из смс</h5>
               <InputMask
-                mask="999-999"
+                mask="9 9 9 9"
                 value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Код из SMS"
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+                placeholder="0 0 0 0"
                 className="code-input"
               />
-              <button onClick={handleVerifyCode} className="enter-button">
+              <button
+                onClick={handleVerifyCode}
+                className="login-button"
+                disabled={code.trim().length !== 4}
+              >
                 Войти
               </button>
               <button onClick={handleResendCode} className="resend-button">
