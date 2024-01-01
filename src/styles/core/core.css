@@ -3,4 +3,6 @@ html, body {
     -webkit-user-select: none; 
     -ms-user-select: none;      
     user-select: none;
+    padding: 0;
+    box-sizing: border-box; /* This ensures padding does not affect the total width/height */
 }

@@ -1,0 +1,33 @@
+.orders-page {
+    width: 100%;
+}
+
+.orders-header {
+    width: 100%;
+    height: 87px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-button {
+    width: 50%;
+    height: 100%;
+    font-size: 26px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    border: none;
+    background-color: #DCEDFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.header-button.active {
+    background-color: #FF8B5B;
+    color: #fff;
+    cursor: default;
+}
+
+.orders-content {
+
+}
