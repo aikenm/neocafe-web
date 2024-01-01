@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import countries from "./countriesNum";
 import "../styles/pages/login_page.css";
@@ -11,13 +12,14 @@ const LoginPage = () => {
   const [code, setCode] = useState("");
   const [currentView, setCurrentView] = useState("form1");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleRequestCode = () => {
     setCurrentView("form2");
   };
 
   const handleVerifyCode = () => {
-    // Verification logic here
+    navigate("/main");
   };
 
   const handleResendCode = () => {

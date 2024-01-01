@@ -1,0 +1,80 @@
+.main-page {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    font-family: 'Nunito', sans-serif;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 117px;
+    background-color: #023462;
+}
+
+.notifications-button {
+    position: absolute;
+    top: 13px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.notifications-button:hover {
+    scale: 0.95;
+    background-color: #e6e6e6;
+}
+
+.sidebar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    height: 111px;
+    width: 100%;
+    background: none;
+    margin: 20px;
+    border: none;
+    color: #fff;
+    transition: color 0.15s ease-in, background-color 0.15s ease-in;
+    padding-left: 3px;
+    cursor: pointer;
+}
+
+.sidebar-button:hover {
+    background-color: #022a50;
+}
+
+.sidebar-button-icon {
+    margin-bottom: 5px;
+}
+
+.sidebar-button.active {
+    border-left: 3px solid #FF8B5B;
+    padding-left: 0;
+    color: #FF8B5B;
+    .sidebar-button-icon {
+        filter: brightness(0) saturate(100%) invert(56%) sepia(58%) saturate(484%) hue-rotate(330deg) brightness(101%) contrast(101%)
+    }
+}
+
+.sidebar-button.active:hover {
+    cursor: default;
+}
+
+.content {
+    width: 100%;
+}
