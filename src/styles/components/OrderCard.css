@@ -1,0 +1,48 @@
+/* OrderCard.css */
+.order-card {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .cancel-button {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .order-info {
+    margin-bottom: 20px;
+  }
+  
+  /* ... rest of your styles ... */
+  
+  .order-button {
+    /* Common styles for buttons */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .accept { background-color: orange; color: white; }
+  .finish { background-color: blue; color: white; }
+  
+  .status-text {
+    font-weight: bold;
+    /* Additional styles for status text */
+  }
+  
+  .status-text.ready { color: green; }
+  .status-text.cancelled { color: red; }
+  .status-text.completed { color: grey; }
+  
+  /* ... rest of your styles ... */
+  

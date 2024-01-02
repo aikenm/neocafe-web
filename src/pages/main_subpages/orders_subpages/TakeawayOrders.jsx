@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import OrderCard from "../../../components/OrderCard";
 import newOrdersIcon from "../../../images/new_orders.svg";
 import inProgressOrdersIcon from "../../../images/in-progress_orders.svg";
 import readyOrdersIcon from "../../../images/ready_orders.svg";
@@ -40,7 +41,13 @@ const TakeawayOrders = () => {
       <div className={`orders-content status-${activeStatus}`}>
         {orders.length > 0 ? (
           orders.map((order) => (
-            <div key={order.id}>{/* Render your order details */}</div>
+            <OrderCard
+              key={order.id}
+              orderName={order.orderName}
+              customerName={order.customerName}
+              items={order.items}
+              status={activeStatus}
+            />
           ))
         ) : (
           <p>No orders found for {activeStatus}</p>
