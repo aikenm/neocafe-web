@@ -70,7 +70,7 @@ const TakeawayOrders = () => {
             </button>
           ))}
         </div>
-        <div className="orders-content">{renderOrdersContent()}</div>
+        {renderOrdersContent()}
       </div>
     </div>
   );

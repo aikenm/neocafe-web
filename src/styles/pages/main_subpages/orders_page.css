@@ -70,6 +70,8 @@
 }
 
 .orders-content {
-    box-sizing: border-box; 
+    background-color: #f4f5f7;
+    display: flex;
+    width: 100%;
     height: calc(100% - 87px); 
 }

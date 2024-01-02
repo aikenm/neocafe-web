@@ -56,7 +56,7 @@ const MainPage = () => {
           Профиль
         </button>
       </div>
-      <div className="content-area">{renderContent()}</div>
+      {renderContent()}
     </div>
   );
 };
