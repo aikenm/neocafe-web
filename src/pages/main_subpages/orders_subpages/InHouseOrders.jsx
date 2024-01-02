@@ -46,28 +46,22 @@ const InHouseOrders = () => {
   };
 
   return (
-    <div className="orders-page">
-      <div className="orders-content-wrapper">
-        <div className="orders-status-header">
-          {orderStatuses.map((status) => (
-            <button
-              key={status.key}
-              onClick={() => setActiveStatus(status.key)}
-              className={`status-button ${
-                activeStatus === status.key ? "active" : ""
-              }`}
-            >
-              <img
-                src={status.icon}
-                alt={status.text}
-                className="status-icon"
-              />
-              {status.text}
-            </button>
-          ))}
-        </div>
-        {renderOrdersContent()}
+    <div className="inhouse-orders-page">
+      <div className="orders-status-header">
+        {orderStatuses.map((status) => (
+          <button
+            key={status.key}
+            onClick={() => setActiveStatus(status.key)}
+            className={`status-button ${
+              activeStatus === status.key ? "active" : ""
+            }`}
+          >
+            <img src={status.icon} alt={status.text} className="status-icon" />
+            {status.text}
+          </button>
+        ))}
       </div>
+      {renderOrdersContent()}
     </div>
   );
 };

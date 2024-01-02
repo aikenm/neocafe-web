@@ -16,6 +16,78 @@ const orderStatuses = [
   { key: "completed", text: "Завершено", icon: completeOrdersIcon },
 ];
 
+const testOrders = [
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "cancelled",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+];
+
 const TakeawayOrders = () => {
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
   const [orders, setOrders] = useState([]);
@@ -41,13 +113,7 @@ const TakeawayOrders = () => {
       <div className={`orders-content status-${activeStatus}`}>
         {orders.length > 0 ? (
           orders.map((order) => (
-            <OrderCard
-              key={order.id}
-              orderName={order.orderName}
-              customerName={order.customerName}
-              items={order.items}
-              status={activeStatus}
-            />
+            <div key={order.id}>{/* Render your order details */}</div>
           ))
         ) : (
           <p>No orders found for {activeStatus}</p>
@@ -57,27 +123,31 @@ const TakeawayOrders = () => {
   };
 
   return (
-    <div className="orders-page">
-      <div className="orders-content-wrapper">
-        <div className="orders-status-header">
-          {orderStatuses.map((status) => (
-            <button
-              key={status.key}
-              onClick={() => setActiveStatus(status.key)}
-              className={`status-button ${
-                activeStatus === status.key ? "active" : ""
-              }`}
-            >
-              <img
-                src={status.icon}
-                alt={status.text}
-                className="status-icon"
-              />
-              {status.text}
-            </button>
-          ))}
-        </div>
-        {renderOrdersContent()}
+    <div className="takeaway-orders-page">
+      <div className="orders-status-header">
+        {orderStatuses.map((status) => (
+          <button
+            key={status.key}
+            onClick={() => setActiveStatus(status.key)}
+            className={`status-button ${
+              activeStatus === status.key ? "active" : ""
+            }`}
+          >
+            <img src={status.icon} alt={status.text} className="status-icon" />
+            {status.text}
+          </button>
+        ))}
+      </div>
+      <div className="order-cards-container">
+        {testOrders.map((order) => (
+          <OrderCard
+            key={order.id}
+            orderNumber={order.orderNumber}
+            customerName={order.customerName}
+            items={order.items}
+            status={order.status}
+          />
+        ))}
       </div>
     </div>
   );

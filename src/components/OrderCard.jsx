@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/components/OrderCard.css";
 import cancelIcon from "../images/cancelIcon.svg";
 
-const OrderCard = ({ orderName, customerName, items, status }) => {
+const OrderCard = ({ orderNumber, customerName, items, status }) => {
   const renderActionButton = () => {
     switch (status) {
       case "new":
@@ -17,9 +17,9 @@ const OrderCard = ({ orderName, customerName, items, status }) => {
   };
 
   const statusTextMap = {
-    ready: "Готово",
-    cancelled: "Отменено",
-    completed: "Завершено",
+    ready: "Заказ готов",
+    cancelled: "Заказ отменен",
+    completed: "Заказ завершен",
   };
 
   return (
@@ -31,15 +31,20 @@ const OrderCard = ({ orderName, customerName, items, status }) => {
       )}
       <div className="order-info">
         <div className="order-header">
-          <div className="order-name">{orderName}</div>
+          <div className="order-number">{orderNumber}</div>
           <div className="customer-name">{customerName}</div>
         </div>
-        <ul className="order-items">
+        <div className="order-items">
           {items.slice(0, 3).map((item, index) => (
-            <li key={index}>{`x${item.quantity} ${item.name}`}</li>
+            <span
+              key={index}
+              className="order-item"
+            >{`x${item.quantity} ${item.name}`}</span>
           ))}
-          {items.length > 3 && <li>Еще +{items.length - 3}</li>}
-        </ul>
+          {items.length > 3 && (
+            <span className="extra-items">Еще +{items.length - 3}</span>
+          )}
+        </div>
       </div>
       {renderActionButton()}
     </div>

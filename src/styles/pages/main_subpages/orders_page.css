@@ -1,5 +1,6 @@
 .orders-page {
-    width: 100%;
+    width: calc(100% - 117px);
+    background-color: #f4f5f7;
 }
 
 .orders-header {
@@ -22,17 +23,19 @@
     transition: all 0.2s ease;
 }
 
+.header-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .header-button.active {
     background-color: #FF8B5B;
     color: #fff;
     cursor: default;
-}
-
-.orders-content-wrapper {
-    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .orders-status-header {
+    padding: 30px 30px 20px 30px;
     justify-content: space-between;
     height: 50px;
     width: 90%;
@@ -60,18 +63,37 @@
 }
 
 .status-button:hover {
-    background-color: #cdcfd4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .status-button.active {
     background-color: #FF8B5B;
     color: white;
     cursor: default;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .orders-content {
-    background-color: #f4f5f7;
-    display: flex;
-    width: 100%;
-    height: calc(100% - 87px); 
+    height: calc(100% - 87px);
 }
+
+/* Takeaway orders */
+
+.order-cards-container {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr); /* Two rows */
+    grid-auto-flow: column; /* New items flow into columns */
+    grid-auto-columns: minmax(240px, 0fr); /* Set a minimum width for the columns */
+    gap: 20px 50px; /* Consistent gap between rows and columns */
+    width: 96%;
+    height: calc(2 * (306px + 20px)); /* Adjust based on the height of two rows of cards */
+    margin: 0 auto;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Hides vertical scrolling */
+    align-items: start; /* Aligns items to the start of each row */
+}
+
+
+
+
+
