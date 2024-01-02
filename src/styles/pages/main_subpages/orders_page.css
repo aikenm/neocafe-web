@@ -28,6 +28,48 @@
     cursor: default;
 }
 
-.orders-content {
+.orders-content-wrapper {
+    padding: 40px;
+}
 
+.orders-status-header {
+    justify-content: space-between;
+    height: 50px;
+    width: 90%;
+    display: flex;
+}
+
+.status-icon {
+    margin-right: 20px;
+}
+
+.status-button {
+    border-radius: 50px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 15px 30px;
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f5f7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.status-button:hover {
+    background-color: #cdcfd4;
+}
+
+.status-button.active {
+    background-color: #FF8B5B;
+    color: white;
+    cursor: default;
+}
+
+.orders-content {
+    box-sizing: border-box; 
+    height: calc(100% - 87px); 
 }
