@@ -1,52 +1,33 @@
-.orders-page {
+.menu-page {
     width: calc(100% - 117px);
     background-color: #f4f5f7;
 }
 
-.orders-header {
+.menu-header {
     width: 100%;
     height: 87px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.header-button {
-    width: 50%;
-    height: 100%;
-    font-size: 26px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    border: none;
-    background-color: #DCEDFF;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.header-button:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.header-button.active {
     background-color: #FF8B5B;
-    color: #fff;
-    cursor: default;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.orders-status-header {
-    padding: 30px 30px 20px 30px;
-    justify-content: space-between;
-    height: 49px;
-    width: 90%;
+.menu-header-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.menu-categories {
+    height: 87px;
     display: flex;
+    align-items: center;
+    padding: 25px 30px 25px 30px;
+    justify-content: space-between;
 }
 
-.status-icon {
-    margin-right: 20px;
-}
-
-.status-button {
+.category-button {
     border-radius: 50px;
     border: none;
     display: flex;
@@ -55,6 +36,7 @@
     margin-right: 20px;
     font-size: 18px;
     font-weight: 700;
+    height: 52px;
     padding: 0px 30px;
     font-family: 'Nunito', sans-serif;
     background-color: #f4f5f7;
@@ -62,36 +44,35 @@
     cursor: pointer;
 }
 
-.status-button:hover {
+.category-button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.status-button.active {
+.category-button.active {
     background-color: #FF8B5B;
     color: white;
     cursor: default;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .category-icon {
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(309deg) brightness(103%) contrast(103%);
+    }
 }
 
-.orders-content {
-    height: calc(100% - 87px);
+.category-icon {
+    margin-right: 10px;
 }
 
-.order-cards-container {
+.menu-items-container {
+    background-color: #FF8B5B;
     display: grid;
     grid-template-rows: repeat(2, 1fr); /* Two rows */
     grid-auto-flow: column; /* New items flow into columns */
     grid-auto-columns: minmax(240px, 0fr); /* Set a minimum width for the columns */
     gap: 20px 50px; /* Consistent gap between rows and columns */
     width: 96%;
-    height: calc(2 * (306px + 20px)); /* Adjust based on the height of two rows of cards */
+    height: calc(2 * (306px)); /* Adjust based on the height of two rows of cards */
     margin: 0 auto;
     overflow-x: auto; /* Enables horizontal scrolling */
     overflow-y: hidden; /* Hides vertical scrolling */
     align-items: start; /* Aligns items to the start of each row */
 }
-
-
-
-
-

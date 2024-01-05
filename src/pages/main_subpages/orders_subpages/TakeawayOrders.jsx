@@ -86,6 +86,213 @@ const testOrders = [
     ],
     status: "new",
   },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "cancelled",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "cancelled",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "cancelled",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
+
+  {
+    id: "1",
+    orderNumber: "M-47",
+    customerName: "Валентина",
+    items: [
+      { name: "Капучино", quantity: 1 },
+      { name: "Барровый закат", quantity: 1 },
+      { name: "Мохито Клубничный", quantity: 1 },
+    ],
+    status: "new",
+  },
 ];
 
 const TakeawayOrders = () => {
