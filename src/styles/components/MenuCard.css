@@ -1,0 +1,48 @@
+.menu-card {
+    display: flex;
+    align-items: center;
+    height: 136px;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-card-image {
+    width: 104px;
+    height: 104px; 
+    border-radius: 24px;
+    background-color: blanchedalmond;
+  }
+  
+  .menu-card-info {
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+  
+  .menu-card-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .menu-card-price {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .menu-card-add-btn {
+    width: 30px; 
+    height: 30px; 
+    border: none;
+    border-radius: 50%;
+    background-color: #FF8B5B;
+    color: #fff;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  

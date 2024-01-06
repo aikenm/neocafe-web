@@ -19,7 +19,7 @@ const orderStatuses = [
 const testOrders = [
   {
     id: "1",
-    orderNumber: "M-47",
+    orderNumber: "M-47 1",
     customerName: "Валентина",
     items: [
       { name: "Капучино", quantity: 1 },
@@ -31,19 +31,19 @@ const testOrders = [
     status: "ready",
   },
   {
-    id: "1",
-    orderNumber: "M-47",
+    id: "2",
+    orderNumber: "M-47 2",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
+      { name: "Капучино", quantity: 2 },
       { name: "Барровый закат", quantity: 1 },
       { name: "Мохито Клубничный", quantity: 1 },
     ],
     status: "cancelled",
   },
   {
-    id: "1",
-    orderNumber: "M-47",
+    id: "3",
+    orderNumber: "M-47 3",
     customerName: "Валентина",
     items: [
       { name: "Капучино", quantity: 1 },
