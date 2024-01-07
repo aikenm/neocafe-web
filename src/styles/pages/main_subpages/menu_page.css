@@ -20,7 +20,7 @@
 }
 
 .menu-categories {
-    height: 87px;
+    height: 70px;
     display: flex;
     align-items: center;
     padding: 25px 30px 25px 30px;
@@ -70,8 +70,38 @@
     gap: 20px 50px;
     width: calc(100% - 60px);
     margin: 0 auto; 
-    max-height: calc(3 * (166px + 15px)); 
+    max-height: calc(3 * (162px + 15px)); 
     overflow-y: auto;
   }
+
+.cart-button {
+    right: 30px;
+    bottom: 23px;
+    position: absolute;
+    width: 451px;
+    height: 83px;
+    background-color: #FF8B5B;
+    border-radius: 50px;
+    padding: 0px 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-button:hover {
+    background-color: #d77350;
+}
+
+.total-price {
+    font-weight: 700;
+}
   
 

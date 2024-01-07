@@ -62,7 +62,6 @@ const Menu = () => {
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   const addToCart = (item) => {
-    // Implement add to cart functionality
     setCart([...cart, item]);
   };
 
@@ -111,8 +110,8 @@ const Menu = () => {
       </div>
       <div className="menu-content">
         {renderCategoryContent()}
-        <button className="cart-icon-button">
-          Заказ на вынос {totalPrice} сом
+        <button className="cart-button">
+          Заказ на вынос <span className="total-price">{totalPrice} сом</span>
         </button>
       </div>
     </div>
