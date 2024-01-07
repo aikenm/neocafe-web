@@ -53,7 +53,7 @@ const testOrders = [
     status: "completed",
   },
   {
-    id: "1",
+    id: "4",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -64,7 +64,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "5",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -76,7 +76,7 @@ const testOrders = [
   },
 
   {
-    id: "1",
+    id: "6",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -87,7 +87,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "6",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -100,7 +100,7 @@ const testOrders = [
     status: "ready",
   },
   {
-    id: "1",
+    id: "7",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -111,7 +111,7 @@ const testOrders = [
     status: "cancelled",
   },
   {
-    id: "1",
+    id: "8",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -122,7 +122,7 @@ const testOrders = [
     status: "completed",
   },
   {
-    id: "1",
+    id: "9",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -133,7 +133,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "10",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -145,7 +145,7 @@ const testOrders = [
   },
 
   {
-    id: "1",
+    id: "11",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -156,7 +156,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "12",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -169,7 +169,7 @@ const testOrders = [
     status: "ready",
   },
   {
-    id: "1",
+    id: "13",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -180,7 +180,7 @@ const testOrders = [
     status: "cancelled",
   },
   {
-    id: "1",
+    id: "14",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -191,7 +191,7 @@ const testOrders = [
     status: "completed",
   },
   {
-    id: "1",
+    id: "15",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -202,7 +202,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "16",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -214,7 +214,7 @@ const testOrders = [
   },
 
   {
-    id: "1",
+    id: "17",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -225,7 +225,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "18",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -238,7 +238,7 @@ const testOrders = [
     status: "ready",
   },
   {
-    id: "1",
+    id: "19",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -249,7 +249,7 @@ const testOrders = [
     status: "cancelled",
   },
   {
-    id: "1",
+    id: "20",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -260,7 +260,7 @@ const testOrders = [
     status: "completed",
   },
   {
-    id: "1",
+    id: "21",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -271,7 +271,7 @@ const testOrders = [
     status: "new",
   },
   {
-    id: "1",
+    id: "22",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -283,7 +283,7 @@ const testOrders = [
   },
 
   {
-    id: "1",
+    id: "23",
     orderNumber: "M-47",
     customerName: "Валентина",
     items: [
@@ -297,30 +297,39 @@ const testOrders = [
 
 const TakeawayOrders = () => {
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(testOrders); // Initially set to testOrders for testing
 
   useEffect(() => {
-    const fetchOrders = async (statusKey) => {
-      const statusText = orderStatuses.find(
-        (status) => status.key === statusKey
-      ).text;
+    const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/api/takeaway-orders/${statusText}`);
+        const response = await axios.get(
+          `/api/takeaway-orders?status=${activeStatus}`
+        );
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching takeaway orders", error);
       }
     };
 
-    fetchOrders(activeStatus);
+    fetchOrders();
   }, [activeStatus]);
+
+  const filteredOrders = orders.filter(
+    (order) => order.status === activeStatus
+  );
 
   const renderOrdersContent = () => {
     return (
-      <div className={`orders-content status-${activeStatus}`}>
-        {orders.length > 0 ? (
-          orders.map((order) => (
-            <div key={order.id}>{/* Render your order details */}</div>
+      <div className={`order-cards-container status-${activeStatus}`}>
+        {filteredOrders.length > 0 ? (
+          filteredOrders.map((order) => (
+            <OrderCard
+              key={order.id}
+              orderNumber={order.orderNumber}
+              customerName={order.customerName}
+              items={order.items}
+              status={order.status}
+            />
           ))
         ) : (
           <p>No orders found for {activeStatus}</p>
@@ -345,17 +354,7 @@ const TakeawayOrders = () => {
           </button>
         ))}
       </div>
-      <div className="order-cards-container">
-        {testOrders.map((order) => (
-          <OrderCard
-            key={order.id}
-            orderNumber={order.orderNumber}
-            customerName={order.customerName}
-            items={order.items}
-            status={order.status}
-          />
-        ))}
-      </div>
+      {renderOrdersContent()}
     </div>
   );
 };
