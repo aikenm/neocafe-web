@@ -58,6 +58,11 @@
     font-size: 16px;
     color: #FFA580;
   }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
   
   .order-button {
     width: 198px;

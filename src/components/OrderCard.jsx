@@ -46,7 +46,7 @@ const OrderCard = ({ orderNumber, customerName, items, status }) => {
           )}
         </div>
       </div>
-      {renderActionButton()}
+      <div className="button-wrapper">{renderActionButton()}</div>
     </div>
   );
 };

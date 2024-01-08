@@ -1,0 +1,191 @@
+.profile-page {
+    width: calc(100% - 117px);
+    background-color: #f4f5f7;
+}
+
+.profile-header {
+    width: 100%;
+    height: 87px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Profile data page */
+
+.personal-data-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 87px);
+    position: relative;
+  }
+  
+  .personal-data-container {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px 30px;
+    border-radius: 30px;
+    width: 706px;
+    height: 313px;
+  }
+
+  .personal-data-header h2{
+    margin: 35px 0px 30px 0px;
+  }
+
+  .personal-data-wrapper {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  
+  .personal-data-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .personal-input-title {
+    color: #8F8F8F;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+
+  .personal-data-value {
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    height: 50px;
+    background-color: #F3F5F7;
+    border-radius: 10px;
+  }
+  
+  .exit-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    padding: 5px; 
+    border: none;
+    font-size: 18px;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: transparent;
+  }
+
+  .exit-button:hover {
+    font-weight: 700;
+    scale: 1.1;
+  }
+
+  /* Work schedule page */
+
+  .schedule-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 87px); 
+  }
+  
+  .calendar-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    grid-template-rows: repeat(5, 1fr); 
+    gap: 30px; 
+    padding: 160px 40px 40px 40px;
+    background: #fff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 30px;
+    position: relative;
+  }
+
+  .calendar-container-info {
+    display: flex;
+    flex-direction: row;
+    width: 87.5%;
+    position: absolute;
+    z-index: 10;
+    padding: 40px;
+  }
+
+  .info-block {
+    display: flex;
+    align-items: center;
+    width: 210px;
+    margin-left: 8px;
+    margin-right: 35px;
+  }
+
+  .working-day-square {
+    width: 40px;
+    height: 40px;
+    background-color: #FF8B5B;
+    margin-right: 15px;
+    border-radius: 5px;
+  }
+  
+  .day-off-square {
+    width: 40px;
+    height: 40px;
+    background-color: #68829A;
+    margin-right: 15px;
+    border-radius: 5px;
+  }
+
+  .calendar-container-info-text {
+    font-size: 20px;
+    font-weight: 600;
+  } 
+
+  .days-abbreviations-block {
+    display: flex;
+    width: 84%;
+    position: absolute;
+    top: 113px;
+    left: 47px;
+    justify-content: space-between;
+  }
+
+  .days-abbreviation {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 55px; 
+    font-size: 32px;
+    color: #fff;
+    border-radius: 5px; 
+  }
+  
+  .working-day {
+    background-color: #FF8B5B; 
+  }
+  
+  .day-off {
+    background-color: #68829A;
+  }
+  
+  .current-day {
+    font-size: 21px;
+    scale: 1.6; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+  }
+
+  .previous-month, .next-month {
+    opacity: 0.3;
+  }

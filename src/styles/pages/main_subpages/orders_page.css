@@ -83,7 +83,6 @@
     height: calc(2 * (306px + 20px)); 
     margin: 0 auto;
     overflow-x: hidden; 
-    overflow-y: auto;
     align-items: start; 
 }
 
