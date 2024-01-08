@@ -98,7 +98,6 @@
     font-weight: 700;
   }
   
-  .status-text.ready { color: #37D400; }
   .status-text.cancelled { color: #171717; }
   .status-text.completed { color: #717171; }
   

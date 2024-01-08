@@ -3,13 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 export const menuSlice = createSlice({
   name: 'menu',
   initialState: {
-    items: [], // Initially empty, fetch from server or static data
+    items: [], 
   },
   reducers: {
     setMenuItems: (state, action) => {
       state.items = action.payload;
     },
-    // Add other reducers as needed for handling menu actions
   },
 });
 

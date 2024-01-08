@@ -17,7 +17,6 @@ const OrderCard = ({ orderNumber, customerName, items, status }) => {
   };
 
   const statusTextMap = {
-    ready: "Заказ готов",
     cancelled: "Заказ отменен",
     completed: "Заказ завершен",
   };
