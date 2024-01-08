@@ -20,6 +20,7 @@
     height: 104px; 
     border-radius: 24px;
     background-color: blanchedalmond;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   }
   
   .menu-card-info {
@@ -56,6 +57,7 @@
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   }
 
   .menu-card-add-button:hover {
