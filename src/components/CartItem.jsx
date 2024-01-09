@@ -3,12 +3,21 @@ import "../styles/components/CartItem.css";
 import plusIcon from "../images/add-icon.svg";
 import minusIcon from "../images/minus-icon.svg";
 import trashIcon from "../images/trash-icon.svg";
+import { useDispatch } from "react-redux";
+import { removeItem } from "../store/cartSlice";
 
 const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
-  const [showDelete, setShowDelete] = useState(false);
+  const [deleteStates, setDeleteStates] = useState(new Map());
+  const dispatch = useDispatch();
 
-  const toggleDelete = () => {
-    setShowDelete(!showDelete);
+  useEffect(() => {
+    setDeleteStates((prevStates) => new Map(prevStates.set(item.id, false)));
+  }, [item.id, item]);
+
+  const toggleDelete = (itemId) => {
+    setDeleteStates(
+      (prevStates) => new Map(prevStates.set(itemId, !prevStates.get(itemId)))
+    );
   };
 
   const handleIncrease = (e) => {
@@ -18,31 +27,22 @@ const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
 
   const handleDecrease = (e) => {
     e.stopPropagation();
-    if (item.quantity > 0) {
+    if (item.quantity > 1) {
       onQuantityChange(item, item.quantity - 1);
     }
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    // Logic to delete the item
+    dispatch(removeItem(item));
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (showDelete && !event.target.closest(".cart-item")) {
-        setShowDelete(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showDelete]);
+  const showDelete = deleteStates.get(item.id);
 
   return (
     <div
       className={`cart-item ${showDelete ? "show-delete" : ""}`}
-      onClick={toggleDelete}
+      onClick={isOrderNew ? () => toggleDelete(item.id) : undefined}
     >
       <img src={item.image} alt={item.name} className="cart-item-image" />
       <div className="cart-item-details">
@@ -53,19 +53,19 @@ const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
             {isOrderNew && (
               <>
                 <button onClick={handleDecrease} className="quantity-decrease">
-                  <img src={minusIcon} alt="" className="minus-icon" />
+                  <img src={minusIcon} alt="Decrease" className="minus-icon" />
                 </button>
                 <span className="cart-item-quantity">{item.quantity}</span>
                 <button onClick={handleIncrease} className="quantity-increase">
-                  <img src={plusIcon} alt="" className="plus-icon" />
+                  <img src={plusIcon} alt="Increase" className="plus-icon" />
                 </button>
               </>
             )}
           </div>
         </div>
-        {isOrderNew && (
+        {isOrderNew && showDelete && (
           <button onClick={handleDelete} className="cart-item-delete">
-            <img src={trashIcon} alt="" className="trash-icon" />
+            <img src={trashIcon} alt="Delete" className="trash-icon" />
           </button>
         )}
       </div>
