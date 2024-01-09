@@ -10,7 +10,7 @@
 
 .cart-item.show-delete {
     transform: translateX(-124px); 
-  }
+}
 
 .cart-item-image {
     margin: 10px 0px;
@@ -23,9 +23,10 @@
 }
 
 .cart-item-details {
+    background-color: #00315D;
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    padding: 10px;
     width: 100%;
 }
 
@@ -96,23 +97,26 @@
 }
 
 .cart-item-delete {
-    right: -124px;
+    z-index: 0;
+    right: 0;
     top: 10px;
     width: 124px;
     height: 116px;
     position: absolute;
     border: none;
     background-color: #FF7777;
-    opacity: 0;
+    opacity: 1;
     transition: all 0.3s ease;
     cursor: pointer;
+    z-index: -1;
+    border-bottom: 2px solid #fff;
 }
 
 .cart-item-delete:hover {
-    background-color: #FF7777;
+    background-color: #ce5e61;
 }
 
 .cart-item.show-delete .cart-item-delete {
-    opacity: 1; /* Make the delete button visible */
-  }
+    transform: translateX(124px); 
+}
 

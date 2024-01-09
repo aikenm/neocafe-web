@@ -10,17 +10,21 @@ const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
   const toggleDelete = () => {
     setShowDelete(!showDelete);
   };
-  const handleIncrease = () => {
+
+  const handleIncrease = (e) => {
+    e.stopPropagation();
     onQuantityChange(item, item.quantity + 1);
   };
 
-  const handleDecrease = () => {
+  const handleDecrease = (e) => {
+    e.stopPropagation();
     if (item.quantity > 0) {
       onQuantityChange(item, item.quantity - 1);
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation();
     // Logic to delete the item
   };
 
