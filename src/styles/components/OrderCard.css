@@ -68,7 +68,7 @@
     width: 198px;
     height: 46px;
     position: absolute;
-    bottom: 10px;
+    bottom: 25px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -97,7 +97,8 @@
     font-size: 22px;
     font-weight: 700;
   }
-  
+
+  .status-text.ready { color: #37D400; }
   .status-text.cancelled { color: #171717; }
   .status-text.completed { color: #717171; }
   

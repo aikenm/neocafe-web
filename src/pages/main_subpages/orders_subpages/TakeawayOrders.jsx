@@ -11,6 +11,7 @@ import OrderCard from "../../../components/OrderCard";
 import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
 import inProgressOrdersIcon from "../../../images/in-progress_orders.svg";
+import readyOrdersIcon from "../../../images/ready_orders.svg";
 import cancelledOrdersIcon from "../../../images/cancelled_orders.svg";
 import completeOrdersIcon from "../../../images/complete_orders.svg";
 import "../../../styles/pages/main_subpages/orders_page.css";
@@ -18,6 +19,7 @@ import "../../../styles/pages/main_subpages/orders_page.css";
 const orderStatuses = [
   { key: "new", text: "Новый", icon: newOrdersIcon },
   { key: "inProgress", text: "В процессе", icon: inProgressOrdersIcon },
+  { key: "ready", text: "Готово", icon: readyOrdersIcon },
   { key: "cancelled", text: "Отменено", icon: cancelledOrdersIcon },
   { key: "completed", text: "Завершено", icon: completeOrdersIcon },
 ];

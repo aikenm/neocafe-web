@@ -87,6 +87,12 @@
     transition: all 0.2s ease;
 }
 
+.cart-add-button:hover {
+    scale: 0.97;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
 .cart-total-amount {
     position: absolute;
     bottom: 90px;
@@ -126,7 +132,7 @@
 }
 
 .cart-action-button:hover {
-    scale: 0.98;
+    scale: 0.97;
     background-color: #db7551;
 }
   

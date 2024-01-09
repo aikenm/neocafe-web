@@ -20,6 +20,7 @@ const OrderCard = ({ order, onSelect }) => {
   };
 
   const statusTextMap = {
+    ready: "Заказ готов",
     cancelled: "Заказ отменен",
     completed: "Заказ завершен",
   };
