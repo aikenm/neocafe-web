@@ -2,7 +2,10 @@ import React from "react";
 import "../styles/components/OrderCard.css";
 import cancelIcon from "../images/cancelIcon.svg";
 
-const OrderCard = ({ orderNumber, customerName, items, status }) => {
+const OrderCard = ({ order, onSelect }) => {
+  if (!order) return null;
+  const { orderNumber, customerName, items, status } = order;
+
   const renderActionButton = () => {
     switch (status) {
       case "new":
@@ -22,7 +25,7 @@ const OrderCard = ({ orderNumber, customerName, items, status }) => {
   };
 
   return (
-    <div className="order-card">
+    <div className="order-card" onClick={() => onSelect(order)}>
       {status === "new" && (
         <button className="cancel-button">
           <img src={cancelIcon} alt="Cancel Order" />

@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectOrder,
+  clearSelectedOrder,
+  setOrders,
+} from "../../../store/orderSlice";
+import coffeeIcon from "../../../images/coffee-icon.svg";
 import OrderCard from "../../../components/OrderCard";
+import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
 import inProgressOrdersIcon from "../../../images/in-progress_orders.svg";
 import cancelledOrdersIcon from "../../../images/cancelled_orders.svg";
@@ -17,285 +25,87 @@ const orderStatuses = [
 const testOrders = [
   {
     id: "1",
-    orderNumber: "M-47 1",
+    orderNumber: "M-1",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
-    status: "ready",
+    status: "inProgress",
   },
   {
     id: "2",
-    orderNumber: "M-47 2",
+    orderNumber: "M-2",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 2 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
-    status: "cancelled",
+    status: "new",
   },
+
   {
     id: "3",
-    orderNumber: "M-47 3",
+    orderNumber: "M-3",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, image: coffeeIcon, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
-    status: "completed",
+    status: "new",
   },
   {
     id: "4",
-    orderNumber: "M-47",
+    orderNumber: "M-4",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
     status: "new",
   },
   {
     id: "5",
-    orderNumber: "M-47",
+    orderNumber: "M-5",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-
-  {
-    id: "6",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
     status: "new",
   },
   {
     id: "6",
-    orderNumber: "M-47",
+    orderNumber: "M-6",
+    orderType: "inhouse",
     customerName: "Валентина",
     items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "ready",
-  },
-  {
-    id: "7",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "cancelled",
-  },
-  {
-    id: "8",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "completed",
-  },
-  {
-    id: "9",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-  {
-    id: "10",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-
-  {
-    id: "11",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-  {
-    id: "12",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "ready",
-  },
-  {
-    id: "13",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "cancelled",
-  },
-  {
-    id: "14",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "completed",
-  },
-  {
-    id: "15",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-  {
-    id: "16",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-
-  {
-    id: "17",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-  {
-    id: "18",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "ready",
-  },
-  {
-    id: "19",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "cancelled",
-  },
-  {
-    id: "20",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "completed",
-  },
-  {
-    id: "21",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-  {
-    id: "22",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
-    ],
-    status: "new",
-  },
-
-  {
-    id: "23",
-    orderNumber: "M-47",
-    customerName: "Валентина",
-    items: [
-      { name: "Капучино", quantity: 1 },
-      { name: "Барровый закат", quantity: 1 },
-      { name: "Мохито Клубничный", quantity: 1 },
+      { id: 1, name: "Капучино", quantity: 1, price: 140 },
+      { id: 2, name: "Барровый закат", quantity: 1, price: 140 },
+      { id: 3, name: "Мохито Клубничный", quantity: 1, price: 140 },
     ],
     status: "new",
   },
 ];
 
 const TakeawayOrders = () => {
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.order.orders);
+  const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
-  const [orders, setOrders] = useState(testOrders);
+
+  const handleOrderSelect = (order) => {
+    dispatch(selectOrder(order));
+  };
+
+  const handleCloseCart = () => {
+    dispatch(clearSelectedOrder());
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -303,14 +113,18 @@ const TakeawayOrders = () => {
         const response = await axios.get(
           `/api/takeaway-orders?status=${activeStatus}`
         );
-        setOrders(response.data);
+        dispatch(setOrders(response.data));
       } catch (error) {
         console.error("Error fetching takeaway orders", error);
       }
     };
 
-    fetchOrders();
-  }, [activeStatus]);
+    if (activeStatus === "new") {
+      dispatch(setOrders(testOrders));
+    } else {
+      fetchOrders();
+    }
+  }, [activeStatus, dispatch]);
 
   const filteredOrders = orders.filter(
     (order) => order.status === activeStatus
@@ -323,14 +137,15 @@ const TakeawayOrders = () => {
           filteredOrders.map((order) => (
             <OrderCard
               key={order.id}
-              orderNumber={order.orderNumber}
-              customerName={order.customerName}
-              items={order.items}
-              status={order.status}
+              order={order}
+              onSelect={handleOrderSelect}
             />
           ))
         ) : (
           <p>No orders found for {activeStatus}</p>
+        )}
+        {selectedOrder && (
+          <CartWindow order={selectedOrder} onClose={handleCloseCart} />
         )}
       </div>
     );
