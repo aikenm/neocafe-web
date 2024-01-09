@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
+import emptyCartImage from "../images/empty-cart.svg"; // Import the image for an empty cart
 import { setItems } from "../store/cartSlice";
 
 const CartWindow = ({ order, onClose }) => {
@@ -11,10 +12,6 @@ const CartWindow = ({ order, onClose }) => {
 
   const itemsToShow = order ? order.items : cartItems;
   const isOrderNew = order ? order.status === "new" : true;
-
-  if (!itemsToShow || itemsToShow.length === 0) {
-    return <div className="cart-window-empty">Your cart is empty.</div>;
-  }
 
   const getTitle = () => {
     if (order) {
@@ -31,12 +28,11 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleQuantityChange = (updatedItem, newQuantity) => {
-    const updatedItems = [...itemsToShow]; // Create a copy of itemsToShow
+    const updatedItems = [...itemsToShow];
     const index = updatedItems.findIndex((item) => item.id === updatedItem.id);
 
     if (index !== -1) {
-      updatedItems[index] = { ...updatedItem, quantity: newQuantity }; // Update the quantity of the item in the copy
-      // Update the cart state with the updated items using setItems action
+      updatedItems[index] = { ...updatedItem, quantity: newQuantity };
       dispatch(setItems(updatedItems));
     }
   };
@@ -63,16 +59,34 @@ const CartWindow = ({ order, onClose }) => {
         )}
       </div>
       <div className="cart-items-container">
-        {itemsToShow.map((item, index) => (
-          <CartItem
-            key={index}
-            item={item}
-            isOrderNew={isOrderNew}
-            onQuantityChange={handleQuantityChange}
-          />
-        ))}
+        {itemsToShow.length === 0 ? (
+          <div className="cart-empty">
+            <p className="empty-cart-text">Вы еще ничего не добавили</p>
+            <img
+              src={emptyCartImage}
+              alt="Empty Cart"
+              className="empty-cart-icon"
+            />
+          </div>
+        ) : (
+          <>
+            {itemsToShow.map((item, index) => (
+              <CartItem
+                key={index}
+                item={item}
+                isOrderNew={isOrderNew}
+                onQuantityChange={handleQuantityChange}
+              />
+            ))}
+            {isOrderNew && itemsToShow.length < 3 && (
+              <button className="cart-add-button">Добавить</button>
+            )}
+          </>
+        )}
       </div>
-      {isOrderNew && <button className="cart-add-button">Добавить</button>}
+      {isOrderNew && itemsToShow.length >= 3 && (
+        <button className="cart-add-button fixed-position">Добавить</button>
+      )}
       <div className="cart-total-amount">
         <span>Итого</span>
         <span>{totalAmount}</span>
