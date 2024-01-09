@@ -60,28 +60,26 @@ const CartWindow = ({ order, onClose }) => {
         <span className="cart-order-number">{order.orderNumber}</span>
         <span className="cart-order-client">{order.customerName}</span>
       </div>
-      {orderItems.map((item, index) => (
-        <CartItem
-          key={index}
-          item={item}
-          isOrderNew={isOrderNew}
-          onQuantityChange={handleQuantityChange}
-        />
-      ))}
-      <div className="cart-total-amount">
-        Total Amount: ${totalAmount.toFixed(2)}
+      <div className="cart-items-container">
+        {orderItems.map((item, index) => (
+          <CartItem
+            key={index}
+            item={item}
+            isOrderNew={isOrderNew}
+            onQuantityChange={handleQuantityChange}
+          />
+        ))}
       </div>
-      {isOrderNew && (
-        <button
-          onClick={() => console.log("Add Item")}
-          className="cart-add-button"
-        >
-          Add Item
+      {isOrderNew && <button className="cart-add-button">Добавить</button>}
+      <div className="cart-total-amount">
+        <span>Итого</span>
+        <span>{totalAmount}</span>
+      </div>
+      <div className="cart-action-button-wrapper">
+        <button onClick={handleAccept} className="cart-action-button">
+          {isOrderNew ? "Принять" : "Завершить заказ"}
         </button>
-      )}
-      <button onClick={handleAccept} className="cart-action-button">
-        {isOrderNew ? "Принять" : "Завершить заказ"}
-      </button>
+      </div>
     </div>
   );
 };

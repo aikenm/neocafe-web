@@ -6,6 +6,11 @@
     position: relative;
     border-bottom: 2px solid #FEFEFE;
     transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.cart-item:last-child {
+    margin: 0px 30px 0px 30px;
 }
 
 .cart-item.show-delete {
