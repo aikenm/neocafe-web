@@ -11,7 +11,6 @@ import emptyCartImage from "../images/empty-cart.svg";
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
-  // Assuming you have a Redux state for personal data
   const personalData = useSelector((state) => state.profile);
 
   const dispatch = useDispatch();

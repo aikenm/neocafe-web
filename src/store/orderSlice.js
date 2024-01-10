@@ -30,7 +30,13 @@ export const orderSlice = createSlice({
           state.selectedOrder = newOrderData;
         }
       },
-  
+      updateOrderStatus: (state, action) => {
+        const { orderId, newStatus } = action.payload;
+        const order = state.orders.find(order => order.id === orderId);
+        if (order) {
+          order.status = newStatus;
+        }
+      },      
       removeOrderItem: (state, action) => {
         const { orderId, itemId } = action.payload;
         const orderToUpdate = state.orders.find(order => order.id === orderId);
@@ -43,6 +49,6 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { addOrder, setOrders, selectOrder, clearSelectedOrder, updateOrder, updateOrderItemQuantity, removeOrderItem } = orderSlice.actions;
+export const { addOrder, setOrders, selectOrder, clearSelectedOrder, updateOrder, updateOrderStatus, updateOrderItemQuantity, removeOrderItem } = orderSlice.actions;
 
 export default orderSlice.reducer;

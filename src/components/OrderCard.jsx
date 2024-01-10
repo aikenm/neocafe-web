@@ -1,18 +1,44 @@
 import React from "react";
 import "../styles/components/OrderCard.css";
 import cancelIcon from "../images/cancelIcon.svg";
+import { useDispatch } from "react-redux";
+import { updateOrderStatus } from "../store/orderSlice";
 
 const OrderCard = ({ order, onSelect }) => {
+  const dispatch = useDispatch();
   if (!order) return null;
 
-  const { orderNumber, customerName, items, status } = order;
+  const { id, orderNumber, customerName, items, status } = order;
+
+  const handleAccept = (e) => {
+    e.stopPropagation();
+    dispatch(updateOrderStatus({ orderId: id, newStatus: "inProgress" }));
+  };
+
+  const handleFinish = (e) => {
+    e.stopPropagation();
+    dispatch(updateOrderStatus({ orderId: id, newStatus: "ready" }));
+  };
+
+  const handleCancel = (e) => {
+    e.stopPropagation();
+    dispatch(updateOrderStatus({ orderId: id, newStatus: "cancelled" }));
+  };
 
   const renderActionButton = () => {
     switch (status) {
       case "new":
-        return <button className="order-button accept">Принять</button>;
+        return (
+          <button className="order-button accept" onClick={handleAccept}>
+            Принять
+          </button>
+        );
       case "inProgress":
-        return <button className="order-button finish">Завершить</button>;
+        return (
+          <button className="order-button finish" onClick={handleFinish}>
+            Готов
+          </button>
+        );
       default:
         return (
           <div className={`status-text ${status}`}>{statusTextMap[status]}</div>
@@ -29,7 +55,7 @@ const OrderCard = ({ order, onSelect }) => {
   return (
     <div className="order-card" onClick={() => onSelect(order)}>
       {status === "new" && (
-        <button className="cancel-button">
+        <button className="cancel-button" onClick={handleCancel}>
           <img src={cancelIcon} alt="Cancel Order" />
         </button>
       )}
