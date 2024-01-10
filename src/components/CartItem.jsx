@@ -6,7 +6,7 @@ import trashIcon from "../images/trash-icon.svg";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../store/cartSlice";
 
-const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
+const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
   const [deleteStates, setDeleteStates] = useState(new Map());
   const dispatch = useDispatch();
 
@@ -34,7 +34,11 @@ const CartItem = ({ item, isOrderNew, onQuantityChange }) => {
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    dispatch(removeItem(item));
+    if (isOrderNew) {
+      dispatch(removeItem(item));
+    } else {
+      onDeleteItem(item.id);
+    }
   };
 
   const showDelete = deleteStates.get(item.id);

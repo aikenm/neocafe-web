@@ -38,6 +38,7 @@ export const testOrders = [
   {
     id: "1",
     orderNumber: "M-1",
+    orderType: "takeaway",
     customerName: "Алексей",
     items: [
       { ...menuItems.coffee[0], quantity: 2 },
@@ -48,6 +49,7 @@ export const testOrders = [
   {
     id: "2",
     orderNumber: "M-2",
+    orderType: "takeaway",
     customerName: "Ольга",
     items: [
       { ...menuItems.pastries[2], quantity: 3 },
@@ -58,6 +60,7 @@ export const testOrders = [
   {
     id: "3",
     orderNumber: "M-3",
+    orderType: "takeaway",
     customerName: "Иван",
     items: [
       { ...menuItems.cocktails[0], quantity: 1 },

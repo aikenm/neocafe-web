@@ -1,11 +1,13 @@
+// TakeawayOrders.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectOrder,
   clearSelectedOrder,
-  setOrders,
+  updateOrder,
 } from "../../../store/orderSlice";
+import { setItems } from "../../../store/cartSlice";
 import OrderCard from "../../../components/OrderCard";
 import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
@@ -13,7 +15,6 @@ import inProgressOrdersIcon from "../../../images/in-progress_orders.svg";
 import readyOrdersIcon from "../../../images/ready_orders.svg";
 import cancelledOrdersIcon from "../../../images/cancelled_orders.svg";
 import completeOrdersIcon from "../../../images/complete_orders.svg";
-import { testOrders } from "../../../common";
 import "../../../styles/pages/main_subpages/orders_page.css";
 
 const orderStatuses = [
@@ -26,34 +27,22 @@ const orderStatuses = [
 
 const TakeawayOrders = () => {
   const dispatch = useDispatch();
-  const [orders, setOrders] = useState(testOrders); // Initialize with testOrders
+  const orders = useSelector((state) => state.order.orders);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
 
   const handleOrderSelect = (order) => {
     dispatch(selectOrder(order));
+    dispatch(setItems(order.items));
   };
 
   const handleCloseCart = () => {
     dispatch(clearSelectedOrder());
   };
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get(
-          `/api/takeaway-orders?status=${activeStatus}`
-        );
-        setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching takeaway orders", error);
-      }
-    };
-
-    if (activeStatus !== "new") {
-      fetchOrders();
-    }
-  }, [activeStatus, dispatch]);
+  const handleEditOrder = (orderId, updatedOrderData) => {
+    dispatch(updateOrder({ orderId, newOrderData: updatedOrderData }));
+  };
 
   const filteredOrders = orders.filter(
     (order) => order.status === activeStatus
@@ -68,6 +57,7 @@ const TakeawayOrders = () => {
               key={order.id}
               order={order}
               onSelect={handleOrderSelect}
+              onEdit={handleEditOrder}
             />
           ))
         ) : (

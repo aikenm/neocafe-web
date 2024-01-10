@@ -4,6 +4,7 @@ import cancelIcon from "../images/cancelIcon.svg";
 
 const OrderCard = ({ order, onSelect }) => {
   if (!order) return null;
+
   const { orderNumber, customerName, items, status } = order;
 
   const renderActionButton = () => {

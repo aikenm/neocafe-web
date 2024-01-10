@@ -1,13 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./CartItem";
+import { setItems } from "../store/cartSlice";
+import { updateOrder, removeOrderItem } from "../store/orderSlice";
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
-import emptyCartImage from "../images/empty-cart.svg"; // Import the image for an empty cart
-import { setItems } from "../store/cartSlice";
+import emptyCartImage from "../images/empty-cart.svg";
 
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
+  const selectedOrder = useSelector((state) => state.order.selectedOrder);
+
+  console.log("Rendering CartWindow", { order, cartItems, selectedOrder });
   const dispatch = useDispatch();
 
   const itemsToShow = order ? order.items : cartItems;
@@ -28,12 +32,33 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleQuantityChange = (updatedItem, newQuantity) => {
-    const updatedItems = [...itemsToShow];
-    const index = updatedItems.findIndex((item) => item.id === updatedItem.id);
+    if (newQuantity < 1) return;
 
-    if (index !== -1) {
-      updatedItems[index] = { ...updatedItem, quantity: newQuantity };
-      dispatch(setItems(updatedItems));
+    const updatedItems = itemsToShow.map((item) =>
+      item.id === updatedItem.id ? { ...item, quantity: newQuantity } : item
+    );
+
+    dispatch(setItems(updatedItems));
+
+    if (selectedOrder) {
+      const updatedOrder = { ...selectedOrder, items: updatedItems };
+      dispatch(
+        updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
+      );
+    }
+  };
+
+  const handleDeleteItem = (itemId) => {
+    const updatedItems = itemsToShow.filter((item) => item.id !== itemId);
+
+    console.log("Updated items after deletion", updatedItems);
+
+    dispatch(setItems(updatedItems));
+    if (selectedOrder) {
+      const updatedOrder = { ...selectedOrder, items: updatedItems };
+      dispatch(
+        updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
+      );
     }
   };
 
@@ -76,6 +101,7 @@ const CartWindow = ({ order, onClose }) => {
                 item={item}
                 isOrderNew={isOrderNew}
                 onQuantityChange={handleQuantityChange}
+                onDeleteItem={handleDeleteItem}
               />
             ))}
             {isOrderNew && itemsToShow.length < 3 && (
