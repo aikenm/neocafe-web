@@ -91,7 +91,7 @@ const CartWindow = ({ order, onClose }) => {
   );
 
   const handleOrderAction = () => {
-    if (!order) {
+    if (!selectedOrder) {
       const newOrder = {
         id: "Unique ID",
         orderNumber: "M-X",
@@ -103,10 +103,40 @@ const CartWindow = ({ order, onClose }) => {
       dispatch(addOrder(newOrder));
       dispatch(setItems([]));
       navigate("/main/orders");
-    } else {
-      console.log("Order processing...");
+    } else if (isOrderNew) {
+      dispatch(
+        updateOrder({
+          orderId: selectedOrder.id,
+          newOrderData: { ...selectedOrder, status: "inProgress" },
+        })
+      );
+    } else if (selectedOrder.status === "ready") {
+      dispatch(
+        updateOrder({
+          orderId: selectedOrder.id,
+          newOrderData: { ...selectedOrder, status: "completed" },
+        })
+      );
     }
+    onClose();
   };
+
+  const isActionButtonDisabled =
+    selectedOrder &&
+    selectedOrder.status !== "ready" &&
+    selectedOrder.status !== "new";
+
+  const actionButtonText = !selectedOrder
+    ? "Заказать"
+    : selectedOrder.status === "new"
+    ? "Принять"
+    : selectedOrder.status === "ready"
+    ? "Завершить заказ"
+    : selectedOrder.status === "cancelled"
+    ? "Заказ отменен"
+    : selectedOrder.status === "completed"
+    ? "Заказ закрыт"
+    : "Завершить заказ";
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -165,8 +195,12 @@ const CartWindow = ({ order, onClose }) => {
         <span>{totalAmount}</span>
       </div>
       <div className="cart-action-button-wrapper">
-        <button onClick={handleOrderAction} className="cart-action-button">
-          {!order ? "Заказать" : isOrderNew ? "Принять" : "Завершить заказ"}
+        <button
+          onClick={handleOrderAction}
+          className="cart-action-button"
+          disabled={isActionButtonDisabled}
+        >
+          {actionButtonText}
         </button>
       </div>
     </div>

@@ -156,6 +156,15 @@
     background-color: #db7551;
 }
 
+.cart-action-button:disabled {
+    background-color: #FFC1A8;
+}
+
+.cart-action-button:disabled:hover {
+    scale: 1.0;
+    cursor: default;
+}
+
 .cart-empty {
     display: flex;
     flex-direction: column;
