@@ -60,7 +60,7 @@ const TakeawayOrders = () => {
             />
           ))
         ) : (
-          <p>No orders found for {activeStatus}</p>
+          <span className="not-found-orders">Нет заказов</span>
         )}
         {selectedOrder && (
           <CartWindow order={selectedOrder} onClose={handleCloseCart} />
