@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -12,12 +12,22 @@ const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const personalData = useSelector((state) => state.profile);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const itemsToShow = order ? order.items : cartItems;
   const isOrderNew = order ? order.status === "new" : true;
+
+  const cartRef = useRef();
+
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   const getTitle = () => {
     if (order) {
@@ -98,8 +108,15 @@ const CartWindow = ({ order, onClose }) => {
     }
   };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
-    <div className="cart-window">
+    <div className="cart-window" ref={cartRef}>
       <div className="cart-header">
         <button onClick={onClose} className="cart-close-button">
           <img src={closeIcon} alt="Close" className="close-icon" />

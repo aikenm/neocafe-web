@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/components/OrderCard.css";
 import cancelIcon from "../images/cancelIcon.svg";
 import { useDispatch } from "react-redux";
+import ModalWindow from "./ModalWindow";
 import { updateOrderStatus } from "../store/orderSlice";
 
 const OrderCard = ({ order, onSelect }) => {
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const dispatch = useDispatch();
   if (!order) return null;
 
@@ -22,7 +24,18 @@ const OrderCard = ({ order, onSelect }) => {
 
   const handleCancel = (e) => {
     e.stopPropagation();
+    setShowCancelModal(true);
+  };
+
+  const confirmCancel = (e) => {
+    e.stopPropagation();
     dispatch(updateOrderStatus({ orderId: id, newStatus: "cancelled" }));
+    setShowCancelModal(false);
+  };
+
+  const closeCancelModal = (e) => {
+    e && e.stopPropagation();
+    setShowCancelModal(false);
   };
 
   const renderActionButton = () => {
@@ -77,6 +90,14 @@ const OrderCard = ({ order, onSelect }) => {
         </div>
       </div>
       <div className="button-wrapper">{renderActionButton()}</div>
+      {showCancelModal && (
+        <ModalWindow
+          title="Отменить заказ"
+          message={`Вы действительно хотите отменить заказ ${orderNumber}?`}
+          onConfirm={confirmCancel}
+          onCancel={closeCancelModal}
+        />
+      )}
     </div>
   );
 };
