@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import "../../../styles/pages/main_subpages/profile_page.css";
 import signOutIcon from "../../../images/sign-out-icon.svg";
 
 const PersonalData = () => {
-  const [personalData] = useState({
-    firstName: "Алихандро",
-    lastName: "Бутовски",
-    phone: "555 555 555",
-    birthDate: "14.03.1998",
-  });
+  const personalData = useSelector((state) => state.profile);
 
   const handleExit = () => {};
 

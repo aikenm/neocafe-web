@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 import { setItems } from "../store/cartSlice";
-import { updateOrder, removeOrderItem } from "../store/orderSlice";
+import { updateOrder, removeOrderItem, addOrder } from "../store/orderSlice";
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
 import emptyCartImage from "../images/empty-cart.svg";
@@ -10,9 +11,11 @@ import emptyCartImage from "../images/empty-cart.svg";
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
+  // Assuming you have a Redux state for personal data
+  const personalData = useSelector((state) => state.profile);
 
-  console.log("Rendering CartWindow", { order, cartItems, selectedOrder });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const itemsToShow = order ? order.items : cartItems;
   const isOrderNew = order ? order.status === "new" : true;
@@ -78,6 +81,24 @@ const CartWindow = ({ order, onClose }) => {
     0
   );
 
+  const handleOrderAction = () => {
+    if (!order) {
+      const newOrder = {
+        id: "Unique ID",
+        orderNumber: "M-X",
+        orderType: "takeaway",
+        customerName: personalData.phone,
+        items: [...cartItems],
+        status: "new",
+      };
+      dispatch(addOrder(newOrder));
+      dispatch(setItems([]));
+      navigate("/main/orders");
+    } else {
+      console.log("Order processing...");
+    }
+  };
+
   return (
     <div className="cart-window">
       <div className="cart-header">
@@ -105,21 +126,19 @@ const CartWindow = ({ order, onClose }) => {
             />
           </div>
         ) : (
-          <>
-            {itemsToShow.map((item, index) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                selectedOrder={selectedOrder}
-                isOrderNew={isOrderNew}
-                onQuantityChange={handleQuantityChange}
-                onDeleteItem={() => handleDeleteItem(item.id)}
-              />
-            ))}
-            {isOrderNew && itemsToShow.length < 3 && (
-              <button className="cart-add-button">Добавить</button>
-            )}
-          </>
+          itemsToShow.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              selectedOrder={selectedOrder}
+              isOrderNew={isOrderNew}
+              onQuantityChange={handleQuantityChange}
+              onDeleteItem={() => handleDeleteItem(item.id)}
+            />
+          ))
+        )}
+        {isOrderNew && itemsToShow.length < 3 && (
+          <button className="cart-add-button">Добавить</button>
         )}
       </div>
       {isOrderNew && itemsToShow.length >= 3 && (
@@ -130,11 +149,8 @@ const CartWindow = ({ order, onClose }) => {
         <span>{totalAmount}</span>
       </div>
       <div className="cart-action-button-wrapper">
-        <button
-          onClick={() => console.log("Order processing...")}
-          className="cart-action-button"
-        >
-          {isOrderNew ? "Принять" : "Завершить заказ"}
+        <button onClick={handleOrderAction} className="cart-action-button">
+          {!order ? "Заказать" : isOrderNew ? "Принять" : "Завершить заказ"}
         </button>
       </div>
     </div>

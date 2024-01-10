@@ -59,7 +59,7 @@
 
 .cart-items-container {
     margin-bottom: 40px;
-    height: 59%;
+    height: 53%;
     overflow-y: scroll; 
     scrollbar-width: none; 
     -ms-overflow-style: none; 
@@ -166,7 +166,7 @@
     font-size: 32px;
     color: #fff;
     font-weight: 700;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 50px;
 }
   

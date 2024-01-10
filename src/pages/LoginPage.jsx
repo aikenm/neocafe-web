@@ -19,7 +19,7 @@ const LoginPage = () => {
   };
 
   const handleVerifyCode = () => {
-    navigate("/main");
+    navigate("/main/orders");
   };
 
   const handleResendCode = () => {
