@@ -34,15 +34,15 @@ const Menu = () => {
       const existingItemIndex = editingOrder.items.findIndex(
         (i) => i.id === item.id
       );
-      let updatedItems;
 
-      if (existingItemIndex > -1) {
-        // If the item exists, update its quantity
+      let updatedItems;
+      if (existingItemIndex >= 0) {
+        // If item exists, update its quantity
         updatedItems = editingOrder.items.map((i, index) =>
           index === existingItemIndex ? { ...i, quantity: i.quantity + 1 } : i
         );
       } else {
-        // If the item doesn't exist, add it to the editing order
+        // If item doesn't exist, add it to the editing order
         updatedItems = [...editingOrder.items, { ...item, quantity: 1 }];
       }
 
@@ -54,10 +54,10 @@ const Menu = () => {
         })
       );
 
-      // Update the cart items in the Redux store
+      // Update the cart items in the Redux store to reflect the changes
       dispatch(setItems(updatedItems));
     } else {
-      // Regular logic to add an item to the cart
+      // Regular logic for adding an item to the cart
       dispatch(addItem(item));
     }
   };

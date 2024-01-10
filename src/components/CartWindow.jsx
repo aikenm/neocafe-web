@@ -9,6 +9,7 @@ import {
   addOrder,
   setEditingOrder,
 } from "../store/orderSlice";
+
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
 import emptyCartImage from "../images/empty-cart.svg";
@@ -16,12 +17,27 @@ import emptyCartImage from "../images/empty-cart.svg";
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
+  const editingOrder = useSelector((state) => state.order.editingOrder); // Retrieve editingOrder
   const personalData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const itemsToShow = order ? order.items : cartItems;
-  const isOrderNew = order ? order.status === "new" : true;
+  const itemsToShow = editingOrder
+    ? editingOrder.items
+    : selectedOrder
+    ? selectedOrder.items
+    : cartItems || [];
+
+  const totalAmount = itemsToShow.reduce(
+    (total, item) => total + item.price * (item.quantity || 1),
+    0
+  );
+
+  const isOrderNew = editingOrder
+    ? editingOrder.status === "new"
+    : selectedOrder
+    ? selectedOrder.status === "new"
+    : true;
 
   const cartRef = useRef();
 
@@ -83,11 +99,6 @@ const CartWindow = ({ order, onClose }) => {
     }
   };
 
-  const totalAmount = itemsToShow.reduce(
-    (total, item) => total + item.price * (item.quantity || 1),
-    0
-  );
-
   const handleAddMoreItems = () => {
     // Set the current order as editable
     dispatch(setEditingOrder(selectedOrder.id));
@@ -96,7 +107,7 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleOrderAction = () => {
-    if (!selectedOrder) {
+    if (!selectedOrder && !editingOrder) {
       // Logic for creating a new order
       const newOrder = {
         id: "Unique ID", // Generate a unique ID for the new order
@@ -109,24 +120,26 @@ const CartWindow = ({ order, onClose }) => {
       dispatch(addOrder(newOrder));
       dispatch(setItems([]));
       navigate("/main/orders");
+      onClose();
     } else {
-      // Update existing order
+      // Update the existing order (either selectedOrder or editingOrder)
+      const orderToUpdate = editingOrder || selectedOrder;
       const updatedStatus = isOrderNew
         ? "inProgress"
-        : selectedOrder.status === "ready"
+        : orderToUpdate.status === "ready"
         ? "completed"
-        : selectedOrder.status;
+        : orderToUpdate.status;
       dispatch(
         updateOrder({
-          orderId: selectedOrder.id,
+          orderId: orderToUpdate.id,
           newOrderData: {
-            ...selectedOrder,
-            items: [...cartItems],
+            ...orderToUpdate,
+            items: itemsToShow,
             status: updatedStatus,
           },
         })
       );
-      if (updatedStatus !== selectedOrder.status) {
+      if (updatedStatus !== orderToUpdate.status) {
         navigate("/main/orders");
       }
     }
