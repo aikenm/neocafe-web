@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 import { setItems } from "../store/cartSlice";
-import { updateOrder, removeOrderItem, addOrder } from "../store/orderSlice";
+import {
+  updateOrder,
+  removeOrderItem,
+  addOrder,
+  setEditingOrder,
+} from "../store/orderSlice";
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
 import emptyCartImage from "../images/empty-cart.svg";
@@ -65,22 +70,15 @@ const CartWindow = ({ order, onClose }) => {
       const updatedItems = selectedOrder.items.filter(
         (item) => item.id !== itemId
       );
-
-      const updatedOrder = {
-        ...selectedOrder,
-        items: updatedItems,
-      };
-
-      dispatch(removeOrderItem({ orderId: selectedOrder.id, itemId }));
       dispatch(
         updateOrder({
           orderId: selectedOrder.id,
-          newOrderData: updatedOrder,
+          newOrderData: { ...selectedOrder, items: updatedItems },
         })
       );
+      dispatch(setItems(updatedItems)); // Update the cart as well
     } else {
       const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-
       dispatch(setItems(updatedCartItems));
     }
   };
@@ -90,33 +88,47 @@ const CartWindow = ({ order, onClose }) => {
     0
   );
 
+  const handleAddMoreItems = () => {
+    // Set the current order as editable
+    dispatch(setEditingOrder(selectedOrder.id));
+    // Navigate to the menu page
+    navigate("/main/menu");
+  };
+
   const handleOrderAction = () => {
     if (!selectedOrder) {
+      // Logic for creating a new order
       const newOrder = {
-        id: "Unique ID",
-        orderNumber: "M-X",
+        id: "Unique ID", // Generate a unique ID for the new order
+        orderNumber: "M-X", // Assign a new order number
         orderType: "takeaway",
         customerName: personalData.phone,
-        items: [...cartItems],
+        items: [...cartItems], // Add items from the cart
         status: "new",
       };
       dispatch(addOrder(newOrder));
       dispatch(setItems([]));
       navigate("/main/orders");
-    } else if (isOrderNew) {
+    } else {
+      // Update existing order
+      const updatedStatus = isOrderNew
+        ? "inProgress"
+        : selectedOrder.status === "ready"
+        ? "completed"
+        : selectedOrder.status;
       dispatch(
         updateOrder({
           orderId: selectedOrder.id,
-          newOrderData: { ...selectedOrder, status: "inProgress" },
+          newOrderData: {
+            ...selectedOrder,
+            items: [...cartItems],
+            status: updatedStatus,
+          },
         })
       );
-    } else if (selectedOrder.status === "ready") {
-      dispatch(
-        updateOrder({
-          orderId: selectedOrder.id,
-          newOrderData: { ...selectedOrder, status: "completed" },
-        })
-      );
+      if (updatedStatus !== selectedOrder.status) {
+        navigate("/main/orders");
+      }
     }
     onClose();
   };
@@ -184,11 +196,18 @@ const CartWindow = ({ order, onClose }) => {
           ))
         )}
         {isOrderNew && itemsToShow.length < 3 && (
-          <button className="cart-add-button">Добавить</button>
+          <button className="cart-add-button" onClick={handleAddMoreItems}>
+            Добавить
+          </button>
         )}
       </div>
       {isOrderNew && itemsToShow.length >= 3 && (
-        <button className="cart-add-button fixed-position">Добавить</button>
+        <button
+          className="cart-add-button fixed-position"
+          onClick={handleAddMoreItems}
+        >
+          Добавить
+        </button>
       )}
       <div className="cart-total-amount">
         <span>Итого</span>
