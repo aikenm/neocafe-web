@@ -29,11 +29,13 @@ export const orderSlice = createSlice({
   
       removeOrderItem: (state, action) => {
         const { orderId, itemId } = action.payload;
-        const order = state.orders.find(order => order.id === orderId);
-        if (order) {
-          order.items = order.items.filter(item => item.id !== itemId);
+        const orderToUpdate = state.orders.find(order => order.id === orderId);
+      
+        if (orderToUpdate) {
+          orderToUpdate.items = orderToUpdate.items.filter(item => item.id !== itemId);
         }
       },
+      
   },
 });
 

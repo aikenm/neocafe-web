@@ -49,16 +49,27 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleDeleteItem = (itemId) => {
-    const updatedItems = itemsToShow.filter((item) => item.id !== itemId);
-
-    console.log("Updated items after deletion", updatedItems);
-
-    dispatch(setItems(updatedItems));
     if (selectedOrder) {
-      const updatedOrder = { ...selectedOrder, items: updatedItems };
-      dispatch(
-        updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
+      const updatedItems = selectedOrder.items.filter(
+        (item) => item.id !== itemId
       );
+
+      const updatedOrder = {
+        ...selectedOrder,
+        items: updatedItems,
+      };
+
+      dispatch(removeOrderItem({ orderId: selectedOrder.id, itemId }));
+      dispatch(
+        updateOrder({
+          orderId: selectedOrder.id,
+          newOrderData: updatedOrder,
+        })
+      );
+    } else {
+      const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+
+      dispatch(setItems(updatedCartItems));
     }
   };
 
@@ -97,11 +108,12 @@ const CartWindow = ({ order, onClose }) => {
           <>
             {itemsToShow.map((item, index) => (
               <CartItem
-                key={index}
+                key={item.id}
                 item={item}
+                selectedOrder={selectedOrder}
                 isOrderNew={isOrderNew}
                 onQuantityChange={handleQuantityChange}
-                onDeleteItem={handleDeleteItem}
+                onDeleteItem={() => handleDeleteItem(item.id)}
               />
             ))}
             {isOrderNew && itemsToShow.length < 3 && (

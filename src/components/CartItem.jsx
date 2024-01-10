@@ -3,12 +3,9 @@ import "../styles/components/CartItem.css";
 import plusIcon from "../images/add-icon.svg";
 import minusIcon from "../images/minus-icon.svg";
 import trashIcon from "../images/trash-icon.svg";
-import { useDispatch } from "react-redux";
-import { removeItem } from "../store/cartSlice";
 
 const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
   const [deleteStates, setDeleteStates] = useState(new Map());
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setDeleteStates((prevStates) => new Map(prevStates.set(item.id, false)));
@@ -29,15 +26,6 @@ const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
     e.stopPropagation();
     if (item.quantity > 1) {
       onQuantityChange(item, item.quantity - 1);
-    }
-  };
-
-  const handleDelete = (e) => {
-    e.stopPropagation();
-    if (isOrderNew) {
-      dispatch(removeItem(item));
-    } else {
-      onDeleteItem(item.id);
     }
   };
 
@@ -68,7 +56,13 @@ const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
           </div>
         </div>
         {isOrderNew && showDelete && (
-          <button onClick={handleDelete} className="cart-item-delete">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteItem();
+            }}
+            className="cart-item-delete"
+          >
             <img src={trashIcon} alt="Delete" className="trash-icon" />
           </button>
         )}
