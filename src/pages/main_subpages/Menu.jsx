@@ -24,15 +24,13 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].key);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
   const [showCartWindow, setShowCartWindow] = useState(false);
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
 
   const addToCart = (item) => {
-    console.log("Current Editing Order (before adding):", editingOrder);
-    console.log("Current Cart Items (before adding):", cart);
-
-    if (editingOrder && editingOrder.items) {
+    if (editingOrder && Array.isArray(editingOrder.items)) {
       const existingItemIndex = editingOrder.items.findIndex(
         (i) => i.id === item.id
       );
@@ -45,16 +43,15 @@ const Menu = () => {
       } else {
         updatedItems = [...editingOrder.items, { ...item, quantity: 1 }];
       }
+
       dispatch(
         updateOrder({
           orderId: editingOrder.id,
           newOrderData: { ...editingOrder, items: updatedItems },
         })
       );
-      console.log("Updated Editing Order (after adding):", updatedItems);
     } else {
       dispatch(addItem(item));
-      console.log("Added Item to Cart:", item);
     }
   };
 
@@ -123,7 +120,7 @@ const Menu = () => {
       <div className="menu-content">
         {renderCategoryContent()}
         <button className="cart-button" onClick={toggleCartWindow}>
-          Заказ на вынос <span className="total-price">{totalPrice} сом</span>
+          Заказ на вынос <span className="total-price">{totalAmount} сом</span>
         </button>
         {showCartWindow && (
           <CartWindow onClose={() => setShowCartWindow(false)} />

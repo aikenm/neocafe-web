@@ -102,7 +102,7 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleAddMoreItems = () => {
-    dispatch(setEditingOrder(selectedOrder.id));
+    dispatch(setEditingOrder(selectedOrder));
     navigate("/main/menu");
   };
 
