@@ -29,36 +29,32 @@ const Menu = () => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
 
   const addToCart = (item) => {
-    if (editingOrder) {
-      // Check if the item already exists in the editing order
+    console.log("Current Editing Order (before adding):", editingOrder);
+    console.log("Current Cart Items (before adding):", cart);
+
+    if (editingOrder && editingOrder.items) {
       const existingItemIndex = editingOrder.items.findIndex(
         (i) => i.id === item.id
       );
-
       let updatedItems;
+
       if (existingItemIndex >= 0) {
-        // If item exists, update its quantity
-        updatedItems = editingOrder.items.map((i, index) =>
-          index === existingItemIndex ? { ...i, quantity: i.quantity + 1 } : i
+        updatedItems = editingOrder.items.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       } else {
-        // If item doesn't exist, add it to the editing order
         updatedItems = [...editingOrder.items, { ...item, quantity: 1 }];
       }
-
-      // Update the editing order in the Redux store
       dispatch(
         updateOrder({
           orderId: editingOrder.id,
           newOrderData: { ...editingOrder, items: updatedItems },
         })
       );
-
-      // Update the cart items in the Redux store to reflect the changes
-      dispatch(setItems(updatedItems));
+      console.log("Updated Editing Order (after adding):", updatedItems);
     } else {
-      // Regular logic for adding an item to the cart
       dispatch(addItem(item));
+      console.log("Added Item to Cart:", item);
     }
   };
 
@@ -70,18 +66,16 @@ const Menu = () => {
   const toggleCartWindow = () => {
     setShowCartWindow(!showCartWindow);
     if (!showCartWindow && selectedOrder) {
-      // Update the cart with the selected order's items when opening the cart window
+      dispatch(setEditingOrder(selectedOrder));
       dispatch(setItems(selectedOrder.items));
-      dispatch(setEditingOrder(selectedOrder.id));
     }
   };
 
-  // Reset editing order when cart window is closed or order is completed
   useEffect(() => {
-    if (!showCartWindow) {
+    if (!showCartWindow && !selectedOrder) {
       dispatch(setEditingOrder(null));
     }
-  }, [showCartWindow, dispatch]);
+  }, [showCartWindow, selectedOrder, dispatch]);
 
   const renderMenuCards = (categoryKey) => {
     return menuItems[categoryKey].map((item) => (

@@ -5,6 +5,7 @@ export const orderSlice = createSlice({
   initialState: {
     orders: [], 
     selectedOrder: null,
+    editingOrder: null,
   },
   reducers: {
     addOrder: (state, action) => {
@@ -15,7 +16,7 @@ export const orderSlice = createSlice({
         state.orders = action.payload;
       },
       setEditingOrder: (state, action) => {
-        state.editingOrder = action.payload; 
+        state.editingOrder = action.payload;
       },
       selectOrder: (state, action) => {
         state.selectedOrder = action.payload;
@@ -27,12 +28,16 @@ export const orderSlice = createSlice({
         const { orderId, newOrderData } = action.payload;
         const orderIndex = state.orders.findIndex(order => order.id === orderId);
         if (orderIndex >= 0) {
-          state.orders[orderIndex] = newOrderData;
+          state.orders[orderIndex] = newOrderData; 
         }
         if (state.selectedOrder && state.selectedOrder.id === orderId) {
-          state.selectedOrder = newOrderData;
+          state.selectedOrder = newOrderData; 
+        }
+        if (state.editingOrder && state.editingOrder.id === orderId) {
+          state.editingOrder = newOrderData; 
         }
       },
+      
       updateOrderStatus: (state, action) => {
         const { orderId, newStatus } = action.payload;
         const order = state.orders.find(order => order.id === orderId);

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectOrder,
+  setEditingOrder,
   clearSelectedOrder,
   updateOrder,
 } from "../../../store/orderSlice";
@@ -32,6 +33,7 @@ const TakeawayOrders = () => {
 
   const handleOrderSelect = (order) => {
     dispatch(selectOrder(order));
+    dispatch(setEditingOrder(order));
     dispatch(setItems(order.items));
   };
 

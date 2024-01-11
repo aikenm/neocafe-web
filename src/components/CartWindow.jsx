@@ -9,7 +9,6 @@ import {
   addOrder,
   setEditingOrder,
 } from "../store/orderSlice";
-
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
 import emptyCartImage from "../images/empty-cart.svg";
@@ -17,27 +16,30 @@ import emptyCartImage from "../images/empty-cart.svg";
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
-  const editingOrder = useSelector((state) => state.order.editingOrder); // Retrieve editingOrder
+  const editingOrder = useSelector((state) => state.order.editingOrder);
+
+  console.log("Cart Items: ", cartItems);
+  console.log("Selected Order: ", selectedOrder);
+  console.log("Editing Order: ", editingOrder);
+
   const personalData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const itemsToShow = editingOrder
-    ? editingOrder.items
-    : selectedOrder
-    ? selectedOrder.items
-    : cartItems || [];
+  const itemsToShow =
+    (editingOrder ? editingOrder.items : null) ||
+    (selectedOrder ? selectedOrder.items : null) ||
+    cartItems ||
+    [];
+
+  console.log("Items to Show: ", itemsToShow);
 
   const totalAmount = itemsToShow.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
     0
   );
 
-  const isOrderNew = editingOrder
-    ? editingOrder.status === "new"
-    : selectedOrder
-    ? selectedOrder.status === "new"
-    : true;
+  const isOrderNew = order ? order.status === "new" : true;
 
   const cartRef = useRef();
 
@@ -92,7 +94,7 @@ const CartWindow = ({ order, onClose }) => {
           newOrderData: { ...selectedOrder, items: updatedItems },
         })
       );
-      dispatch(setItems(updatedItems)); // Update the cart as well
+      dispatch(setItems(updatedItems));
     } else {
       const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
       dispatch(setItems(updatedCartItems));
@@ -100,21 +102,18 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleAddMoreItems = () => {
-    // Set the current order as editable
     dispatch(setEditingOrder(selectedOrder.id));
-    // Navigate to the menu page
     navigate("/main/menu");
   };
 
   const handleOrderAction = () => {
-    if (!selectedOrder && !editingOrder) {
-      // Logic for creating a new order
+    if (!selectedOrder) {
       const newOrder = {
-        id: "Unique ID", // Generate a unique ID for the new order
-        orderNumber: "M-X", // Assign a new order number
+        id: "Unique ID",
+        orderNumber: "M-X",
         orderType: "takeaway",
         customerName: personalData.phone,
-        items: [...cartItems], // Add items from the cart
+        items: [...cartItems],
         status: "new",
       };
       dispatch(addOrder(newOrder));
@@ -122,28 +121,29 @@ const CartWindow = ({ order, onClose }) => {
       navigate("/main/orders");
       onClose();
     } else {
-      // Update the existing order (either selectedOrder or editingOrder)
-      const orderToUpdate = editingOrder || selectedOrder;
-      const updatedStatus = isOrderNew
-        ? "inProgress"
-        : orderToUpdate.status === "ready"
-        ? "completed"
-        : orderToUpdate.status;
+      const nextStatus =
+        selectedOrder.status === "new"
+          ? "inProgress"
+          : selectedOrder.status === "ready"
+          ? "completed"
+          : selectedOrder.status;
+
+      const updatedOrder = {
+        ...selectedOrder,
+        items: editingOrder ? editingOrder.items : selectedOrder.items,
+        status: nextStatus,
+      };
+
       dispatch(
-        updateOrder({
-          orderId: orderToUpdate.id,
-          newOrderData: {
-            ...orderToUpdate,
-            items: itemsToShow,
-            status: updatedStatus,
-          },
-        })
+        updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
       );
-      if (updatedStatus !== orderToUpdate.status) {
+
+      if (nextStatus !== selectedOrder.status) {
         navigate("/main/orders");
       }
+
+      onClose();
     }
-    onClose();
   };
 
   const isActionButtonDisabled =
