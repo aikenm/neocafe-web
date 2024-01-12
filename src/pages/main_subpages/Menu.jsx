@@ -67,18 +67,17 @@ const Menu = () => {
 
   const toggleCartWindow = () => {
     setShowCartWindow(!showCartWindow);
+
     if (!showCartWindow) {
       if (selectedOrder) {
         dispatch(setEditingOrder(selectedOrder));
         dispatch(setItems(selectedOrder.items));
-      } else if (tempItems.length > 0) {
-        // Load temporary items into the cart if no order is selected
+      } else if (cart.length > 0 && tempItems.length > 0) {
         dispatch(setItems(tempItems));
         dispatch(clearTempItems());
       }
     } else {
-      if (!selectedOrder) {
-        // Save temporary items when closing CartWindow if no order is selected
+      if (!selectedOrder && cart.length > 0) {
         dispatch(saveTempItems(cart));
       }
       dispatch(setEditingOrder(null));
@@ -105,12 +104,11 @@ const Menu = () => {
     );
   };
 
-  // Add this logic in the useEffect hook in the Menu component
   useEffect(() => {
     if (!selectedOrder && !editingOrder && tempItems.length > 0) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
-    } else if (selectedOrder) {
+    } else if (editingOrder && tempItems.length > 0) {
       dispatch(setItems([]));
     }
 

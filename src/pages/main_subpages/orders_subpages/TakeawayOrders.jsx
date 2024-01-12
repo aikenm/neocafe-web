@@ -52,6 +52,8 @@ const TakeawayOrders = () => {
     if (tempItems.length > 0) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
+    } else if (tempItems.length === 0) {
+      dispatch(setItems([]));
     }
   };
 
