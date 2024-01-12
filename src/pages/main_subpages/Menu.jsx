@@ -38,6 +38,7 @@ const Menu = () => {
   const [showCartWindow, setShowCartWindow] = useState(false);
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
+  const [wasCartInitiallyEmpty, setWasCartInitiallyEmpty] = useState(false);
 
   const addToCart = (item) => {
     if (editingOrder && Array.isArray(editingOrder.items)) {
@@ -69,6 +70,8 @@ const Menu = () => {
     setShowCartWindow(!showCartWindow);
 
     if (!showCartWindow) {
+      setWasCartInitiallyEmpty(tempItems.length === 0);
+
       if (selectedOrder) {
         dispatch(setEditingOrder(selectedOrder));
         dispatch(setItems(selectedOrder.items));
@@ -105,22 +108,16 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log(token);
     if (!selectedOrder && !editingOrder && tempItems.length > 0) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
-    }
-    if (
-      (editingOrder && tempItems.length > 0) ||
-      (editingOrder && tempItems.length == 0)
-    ) {
+    } else if (editingOrder && tempItems.length > 0) {
       dispatch(setItems([]));
     }
 
-    // if (editingOrder && tempItems.length == 0) {
-    //   dispatch(setItems([]));
-    // }
+    if (editingOrder && wasCartInitiallyEmpty) {
+      dispatch(setItems([]));
+    }
 
     if (!showCartWindow && !selectedOrder) {
       dispatch(setEditingOrder(null));

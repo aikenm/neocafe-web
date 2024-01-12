@@ -31,8 +31,8 @@ const orderStatuses = [
 const TakeawayOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order.orders);
-  const cartItems = useSelector((state) => state.cart.items); // Add this line
-  const editingOrder = useSelector((state) => state.order.editingOrder); // Add this line
+  const cartItems = useSelector((state) => state.cart.items);
+  const editingOrder = useSelector((state) => state.order.editingOrder);
   const tempItems = useSelector((state) => state.cart.tempItems);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);

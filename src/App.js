@@ -27,7 +27,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const interval = 40 * 60 * 1000; 
+    const interval = 30 * 60 * 1000; 
 
     const intervalId = setInterval(() => {
       const token = localStorage.getItem("refreshToken");

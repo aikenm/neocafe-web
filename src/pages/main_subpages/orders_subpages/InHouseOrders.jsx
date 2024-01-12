@@ -18,18 +18,18 @@ const InHouseOrders = () => {
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    const fetchOrders = async (status) => {
-      try {
-        const response = await axios.get(`/api/orders/${status}`);
-        setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching orders", error);
-      }
-    };
+  //   useEffect(() => {
+  //     const fetchOrders = async (status) => {
+  //       try {
+  //         const response = await axios.get(`/api/orders/${status}`);
+  //         setOrders(response.data);
+  //       } catch (error) {
+  //         console.error("Error fetching orders", error);
+  //       }
+  //     };
 
-    fetchOrders(activeStatus);
-  }, [activeStatus]);
+  //     fetchOrders(activeStatus);
+  //   }, [activeStatus]);
 
   const renderOrdersContent = () => {
     return (
