@@ -105,12 +105,22 @@ const Menu = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token);
     if (!selectedOrder && !editingOrder && tempItems.length > 0) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
-    } else if (editingOrder && tempItems.length > 0) {
+    }
+    if (
+      (editingOrder && tempItems.length > 0) ||
+      (editingOrder && tempItems.length == 0)
+    ) {
       dispatch(setItems([]));
     }
+
+    // if (editingOrder && tempItems.length == 0) {
+    //   dispatch(setItems([]));
+    // }
 
     if (!showCartWindow && !selectedOrder) {
       dispatch(setEditingOrder(null));

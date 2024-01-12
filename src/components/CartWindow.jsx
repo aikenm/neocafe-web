@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -17,6 +17,7 @@ const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const editingOrder = useSelector((state) => state.order.editingOrder);
+  const [orderEdited, setOrderEdited] = useState(false);
 
   const personalData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
@@ -105,6 +106,7 @@ const CartWindow = ({ order, onClose }) => {
 
   const handleAddMoreItems = () => {
     dispatch(setEditingOrder(selectedOrder));
+    setOrderEdited(true);
     navigate("/main/menu");
   };
 
@@ -140,9 +142,13 @@ const CartWindow = ({ order, onClose }) => {
         updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
       );
 
+      if (orderEdited) {
+        dispatch(setItems([]));
+      }
+
       onClose();
+      dispatch(clearTempItems([]));
       dispatch(clearSelectedOrder());
-      dispatch(clearTempItems());
       dispatch(setEditingOrder(null));
       navigate("/main/orders");
     }
