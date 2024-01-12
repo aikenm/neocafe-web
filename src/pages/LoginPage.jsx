@@ -48,7 +48,8 @@ const LoginPage = () => {
         }
       );
       // Save access token to localStorage
-      localStorage.setItem("token", response.data.access);
+      localStorage.setItem("accessToken", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
 
       navigate("/main/orders");
     } catch (error) {

@@ -16,6 +16,8 @@ const Profile = () => {
   };
 
   const handleConfirmExit = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     navigate("/");
   };
 
