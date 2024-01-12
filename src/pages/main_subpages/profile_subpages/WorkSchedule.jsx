@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
@@ -8,15 +9,7 @@ dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
 const WorkSchedule = () => {
-  const [workSchedule, setWorkSchedule] = useState({
-    Monday: true,
-    Tuesday: false,
-    Wednesday: true,
-    Thursday: true,
-    Friday: false,
-    Saturday: false,
-    Sunday: true,
-  });
+  const { workSchedule } = useSelector((state) => state.profile);
 
   const currentDate = dayjs();
   const currentMonth = currentDate.month();

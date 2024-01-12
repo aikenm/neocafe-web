@@ -30,8 +30,9 @@ const LoginPage = () => {
           phone_number: fullPhoneNumber,
         }
       );
-      // Handle response, e.g., display a message or log
-      setCurrentView("form2");
+      if (response.status === 200) {
+        setCurrentView("form2");
+      }
     } catch (error) {
       // Handle error, e.g., display an error message
       console.error("Error sending phone number:", error);

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import ModalWindow from "../../../components/ModalWindow";
 import "../../../styles/pages/main_subpages/profile_page.css";
-import signOutIcon from "../../../images/sign-out-icon.svg";
 
 const PersonalData = () => {
   const personalData = useSelector((state) => state.profile);
