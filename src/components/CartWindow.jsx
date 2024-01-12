@@ -113,7 +113,7 @@ const CartWindow = ({ order, onClose }) => {
   const handleOrderAction = () => {
     if (!selectedOrder) {
       const newOrder = {
-        id: "Unique ID",
+        id: `order-${Date.now()}`,
         orderNumber: "M-X",
         orderType: "takeaway",
         customerName: personalData.phone,

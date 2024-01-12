@@ -80,7 +80,8 @@ const WorkSchedule = () => {
               day
             )
           );
-          const isWorkingDay = workSchedule[dateToCheck.format("dddd")];
+          const dayKey = dateToCheck.format("dddd").toLowerCase();
+          const isWorkingDay = workSchedule[dayKey];
           const isCurrentDay =
             currentDate.date() === dayOfMonth &&
             currentDate.month() === dateToCheck.month();
