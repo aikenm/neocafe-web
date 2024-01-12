@@ -7,7 +7,11 @@ import {
   clearSelectedOrder,
   updateOrder,
 } from "../../../store/orderSlice";
-import { setItems } from "../../../store/cartSlice";
+import {
+  setItems,
+  saveTempItems,
+  clearTempItems,
+} from "../../../store/cartSlice";
 import OrderCard from "../../../components/OrderCard";
 import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
@@ -28,16 +32,27 @@ const orderStatuses = [
 const TakeawayOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order.orders);
+  const cartItems = useSelector((state) => state.cart.items); // Add this line
+  const editingOrder = useSelector((state) => state.order.editingOrder); // Add this line
+  const tempItems = useSelector((state) => state.cart.tempItems);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
 
   const handleOrderSelect = (order) => {
+    if (cartItems.length > 0 && !editingOrder) {
+      dispatch(saveTempItems(cartItems));
+    }
     dispatch(selectOrder(order));
     dispatch(setEditingOrder(order));
+    dispatch(setItems(order.items));
   };
 
   const handleCloseCart = () => {
     dispatch(clearSelectedOrder());
+    if (tempItems.length > 0) {
+      dispatch(setItems(tempItems));
+      dispatch(clearTempItems());
+    }
   };
 
   const handleEditOrder = (orderId, updatedOrderData) => {

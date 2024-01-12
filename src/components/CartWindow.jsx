@@ -18,10 +18,6 @@ const CartWindow = ({ order, onClose }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const editingOrder = useSelector((state) => state.order.editingOrder);
 
-  console.log("Cart Items: ", cartItems);
-  console.log("Selected Order: ", selectedOrder);
-  console.log("Editing Order: ", editingOrder);
-
   const personalData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,12 +27,6 @@ const CartWindow = ({ order, onClose }) => {
     (selectedOrder ? selectedOrder.items : null) ||
     cartItems ||
     [];
-
-  const handleNavigateAway = () => {
-    if (cartItems.length > 0 && !selectedOrder && !editingOrder) {
-      dispatch(saveTempItems(cartItems));
-    }
-  };
 
   const totalAmount = itemsToShow.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
@@ -55,6 +45,12 @@ const CartWindow = ({ order, onClose }) => {
     },
     [onClose]
   );
+
+  const handleNavigateAway = () => {
+    if (cartItems.length > 0 && !selectedOrder && !editingOrder) {
+      dispatch(saveTempItems(cartItems));
+    }
+  };
 
   const getTitle = () => {
     if (order) {
@@ -98,7 +94,9 @@ const CartWindow = ({ order, onClose }) => {
           newOrderData: { ...selectedOrder, items: updatedItems },
         })
       );
-      dispatch(setItems(updatedItems));
+      if (editingOrder && editingOrder.id === selectedOrder.id) {
+        dispatch(setItems(updatedItems));
+      }
     } else {
       const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
       dispatch(setItems(updatedCartItems));
@@ -121,6 +119,7 @@ const CartWindow = ({ order, onClose }) => {
         status: "new",
       };
       dispatch(addOrder(newOrder));
+      dispatch(clearTempItems());
       dispatch(setItems([]));
       navigate("/main/orders");
     } else {
@@ -142,6 +141,7 @@ const CartWindow = ({ order, onClose }) => {
       );
 
       onClose();
+      dispatch(clearSelectedOrder());
       dispatch(clearTempItems());
       dispatch(setEditingOrder(null));
       navigate("/main/orders");
@@ -175,7 +175,13 @@ const CartWindow = ({ order, onClose }) => {
   return (
     <div className="cart-window" ref={cartRef}>
       <div className="cart-header">
-        <button onClick={onClose} className="cart-close-button">
+        <button
+          onClick={() => {
+            handleNavigateAway();
+            onClose();
+          }}
+          className="cart-close-button"
+        >
           <img src={closeIcon} alt="Close" className="close-icon" />
         </button>
         <h2 className="cart-title">{getTitle()}</h2>

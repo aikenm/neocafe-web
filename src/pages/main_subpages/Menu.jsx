@@ -3,7 +3,12 @@ import MenuCard from "../../components/MenuCard";
 import CartWindow from "../../components/CartWindow";
 import { menuItems } from "../../common";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, setItems, clearTempItems } from "../../store/cartSlice";
+import {
+  addItem,
+  setItems,
+  clearTempItems,
+  saveTempItems,
+} from "../../store/cartSlice";
 import "../../styles/pages/main_subpages/menu_page.css";
 import coffeeIcon from "../../images/coffee-icon.svg";
 import bakeryIcon from "../../images/bakery-icon.svg";
@@ -56,16 +61,23 @@ const Menu = () => {
     }
   };
 
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1),
-    0
-  );
-
   const toggleCartWindow = () => {
     setShowCartWindow(!showCartWindow);
-    if (!showCartWindow && selectedOrder) {
-      dispatch(setEditingOrder(selectedOrder));
-      dispatch(setItems(selectedOrder.items));
+    if (!showCartWindow) {
+      if (selectedOrder) {
+        dispatch(setEditingOrder(selectedOrder));
+        dispatch(setItems(selectedOrder.items));
+      } else if (tempItems.length > 0) {
+        // Load temporary items into the cart if no order is selected
+        dispatch(setItems(tempItems));
+        dispatch(clearTempItems());
+      }
+    } else {
+      if (!selectedOrder) {
+        // Save temporary items when closing CartWindow if no order is selected
+        dispatch(saveTempItems(cart));
+      }
+      dispatch(setEditingOrder(null));
     }
   };
 
@@ -89,10 +101,9 @@ const Menu = () => {
     );
   };
 
+  // Add this logic in the useEffect hook in the Menu component
   useEffect(() => {
-    if (editingOrder && showCartWindow) {
-      dispatch(setItems(editingOrder.items));
-    } else if (!selectedOrder && tempItems.length > 0) {
+    if (!selectedOrder && !editingOrder && tempItems.length > 0) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
     }
