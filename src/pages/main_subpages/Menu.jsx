@@ -3,7 +3,7 @@ import MenuCard from "../../components/MenuCard";
 import CartWindow from "../../components/CartWindow";
 import { menuItems } from "../../common";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, setItems } from "../../store/cartSlice";
+import { addItem, setItems, clearTempItems } from "../../store/cartSlice";
 import "../../styles/pages/main_subpages/menu_page.css";
 import coffeeIcon from "../../images/coffee-icon.svg";
 import bakeryIcon from "../../images/bakery-icon.svg";
@@ -24,6 +24,7 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].key);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
+  const tempItems = useSelector((state) => state.cart.tempItems);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const [showCartWindow, setShowCartWindow] = useState(false);
   const editingOrder = useSelector((state) => state.order.editingOrder);
@@ -68,12 +69,6 @@ const Menu = () => {
     }
   };
 
-  useEffect(() => {
-    if (!showCartWindow && !selectedOrder) {
-      dispatch(setEditingOrder(null));
-    }
-  }, [showCartWindow, selectedOrder, dispatch]);
-
   const renderMenuCards = (categoryKey) => {
     return menuItems[categoryKey].map((item) => (
       <MenuCard
@@ -93,6 +88,19 @@ const Menu = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    if (editingOrder && showCartWindow) {
+      dispatch(setItems(editingOrder.items));
+    } else if (!selectedOrder && tempItems.length > 0) {
+      dispatch(setItems(tempItems));
+      dispatch(clearTempItems());
+    }
+
+    if (!showCartWindow && !selectedOrder) {
+      dispatch(setEditingOrder(null));
+    }
+  }, [selectedOrder, editingOrder, tempItems, showCartWindow, dispatch]);
 
   return (
     <div className="menu-page">

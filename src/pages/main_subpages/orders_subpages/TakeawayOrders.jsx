@@ -34,7 +34,6 @@ const TakeawayOrders = () => {
   const handleOrderSelect = (order) => {
     dispatch(selectOrder(order));
     dispatch(setEditingOrder(order));
-    dispatch(setItems(order.items));
   };
 
   const handleCloseCart = () => {

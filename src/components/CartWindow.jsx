@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
-import { setItems } from "../store/cartSlice";
+import { setItems, saveTempItems, clearTempItems } from "../store/cartSlice";
 import {
   updateOrder,
-  removeOrderItem,
+  clearSelectedOrder,
   addOrder,
   setEditingOrder,
 } from "../store/orderSlice";
@@ -32,7 +32,11 @@ const CartWindow = ({ order, onClose }) => {
     cartItems ||
     [];
 
-  console.log("Items to Show: ", itemsToShow);
+  const handleNavigateAway = () => {
+    if (cartItems.length > 0 && !selectedOrder && !editingOrder) {
+      dispatch(saveTempItems(cartItems));
+    }
+  };
 
   const totalAmount = itemsToShow.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
@@ -119,7 +123,6 @@ const CartWindow = ({ order, onClose }) => {
       dispatch(addOrder(newOrder));
       dispatch(setItems([]));
       navigate("/main/orders");
-      onClose();
     } else {
       const nextStatus =
         selectedOrder.status === "new"
@@ -138,11 +141,10 @@ const CartWindow = ({ order, onClose }) => {
         updateOrder({ orderId: selectedOrder.id, newOrderData: updatedOrder })
       );
 
-      if (nextStatus !== selectedOrder.status) {
-        navigate("/main/orders");
-      }
-
       onClose();
+      dispatch(clearTempItems());
+      dispatch(setEditingOrder(null));
+      navigate("/main/orders");
     }
   };
 
