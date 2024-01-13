@@ -39,6 +39,7 @@ const Menu = () => {
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [wasCartInitiallyEmpty, setWasCartInitiallyEmpty] = useState(false);
+  const [tempTotalAmount, setTempTotalAmount] = useState(0);
 
   const addToCart = (item) => {
     if (editingOrder && Array.isArray(editingOrder.items)) {
@@ -122,6 +123,14 @@ const Menu = () => {
     if (!showCartWindow && !selectedOrder) {
       dispatch(setEditingOrder(null));
     }
+
+    if (editingOrder) {
+      const editingOrderTotal = editingOrder.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+      setTempTotalAmount(editingOrderTotal);
+    }
   }, [selectedOrder, editingOrder, tempItems, showCartWindow, dispatch]);
 
   return (
@@ -150,7 +159,10 @@ const Menu = () => {
       <div className="menu-content">
         {renderCategoryContent()}
         <button className="cart-button" onClick={toggleCartWindow}>
-          Заказ на вынос <span className="total-price">{totalAmount} сом</span>
+          Заказ на вынос{" "}
+          <span className="total-price">
+            {editingOrder ? tempTotalAmount : totalAmount} сом
+          </span>
         </button>
         {showCartWindow && (
           <CartWindow onClose={() => setShowCartWindow(false)} />
