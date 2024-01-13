@@ -58,16 +58,42 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const getTitle = () => {
+    if (editingOrder) {
+      let title = "";
+      switch (editingOrder.orderType) {
+        case "takeaway":
+          title = "Заказ на вынос";
+          break;
+        case "inhouse":
+          title = "Заказ в заведении";
+          break;
+        default:
+          title = "Заказ";
+      }
+      if (editingOrder.orderNumber) {
+        title += ` (${editingOrder.orderNumber})`;
+      }
+      return title;
+    }
+
     if (order) {
+      let title = "";
       switch (order.orderType) {
         case "takeaway":
-          return "Заказ на вынос";
+          title = "Заказ на вынос";
+          break;
         case "inhouse":
-          return "Заказ в заведении";
+          title = "Заказ в заведении";
+          break;
         default:
-          return "Заказ";
+          title = "Заказ";
       }
+      if (order.orderNumber) {
+        title += ` (${order.orderNumber})`;
+      }
+      return title;
     }
+
     return "Новый заказ";
   };
 
