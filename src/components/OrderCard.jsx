@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/components/OrderCard.css";
 import cancelIcon from "../images/cancelIcon.svg";
 import { useDispatch } from "react-redux";
 import ModalWindow from "./ModalWindow";
-import { updateOrderStatus } from "../store/orderSlice";
+import { updateOrderStatus, deleteOrder } from "../store/orderSlice";
 
 const OrderCard = ({ order, onSelect }) => {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const dispatch = useDispatch();
-  if (!order) return null;
 
   const { id, orderNumber, customerName, items, status } = order;
+
+  useEffect(() => {
+    if (items.length === 0) {
+      dispatch(deleteOrder(id));
+    }
+  }, [items, id, dispatch]);
+
+  if (!order) return null;
 
   const handleAccept = (e) => {
     e.stopPropagation();

@@ -53,10 +53,20 @@ export const orderSlice = createSlice({
           orderToUpdate.items = orderToUpdate.items.filter(item => item.id !== itemId);
         }
       },
-      
+      deleteOrder: (state, action) => {
+        const orderId = action.payload;
+        state.orders = state.orders.filter(order => order.id !== orderId);
+  
+        if (state.selectedOrder && state.selectedOrder.id === orderId) {
+          state.selectedOrder = null;
+        }
+        if (state.editingOrder && state.editingOrder.id === orderId) {
+          state.editingOrder = null;
+        }
+      },
   },
 });
 
-export const { addOrder, setOrders, selectOrder, clearSelectedOrder, updateOrder, setEditingOrder, updateOrderStatus, updateOrderItemQuantity, removeOrderItem } = orderSlice.actions;
+export const { addOrder, setOrders, selectOrder, clearSelectedOrder, updateOrder, setEditingOrder, updateOrderStatus, updateOrderItemQuantity, removeOrderItem, deleteOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;

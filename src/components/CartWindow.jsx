@@ -29,6 +29,8 @@ const CartWindow = ({ order, onClose }) => {
     cartItems ||
     [];
 
+  const areNoItemsToShow = itemsToShow.length === 0;
+
   const totalAmount = itemsToShow.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
     0
@@ -155,9 +157,10 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const isActionButtonDisabled =
-    selectedOrder &&
-    selectedOrder.status !== "ready" &&
-    selectedOrder.status !== "new";
+    (selectedOrder &&
+      selectedOrder.status !== "ready" &&
+      selectedOrder.status !== "new") ||
+    areNoItemsToShow;
 
   const actionButtonText = !selectedOrder
     ? "Заказать"
