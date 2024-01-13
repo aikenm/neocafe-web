@@ -8,6 +8,7 @@ import {
   clearSelectedOrder,
   addOrder,
   setEditingOrder,
+  setOrderAccepted,
 } from "../store/orderSlice";
 import "../styles/components/CartWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
@@ -15,6 +16,7 @@ import emptyCartImage from "../images/empty-cart.svg";
 
 const CartWindow = ({ order, onClose }) => {
   const cartItems = useSelector((state) => state.cart.items);
+  const tempItems = useSelector((state) => state.cart.tempItems);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const [orderEdited, setOrderEdited] = useState(false);
@@ -66,7 +68,7 @@ const CartWindow = ({ order, onClose }) => {
           return "Заказ";
       }
     }
-    return "Ваш заказ";
+    return "Новый заказ";
   };
 
   const handleQuantityChange = (updatedItem, newQuantity) => {
@@ -149,10 +151,16 @@ const CartWindow = ({ order, onClose }) => {
       }
 
       onClose();
-      dispatch(clearTempItems([]));
       dispatch(clearSelectedOrder());
       dispatch(setEditingOrder(null));
-      navigate("/main/orders");
+
+      if (tempItems.length > 0) {
+        dispatch(setItems(tempItems));
+        dispatch(clearTempItems());
+      } else {
+        dispatch(setItems([]));
+      }
+      navigate(`/main/orders/${nextStatus}`);
     }
   };
 
@@ -180,6 +188,12 @@ const CartWindow = ({ order, onClose }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleClickOutside]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setOrderAccepted(false));
+    };
+  }, [dispatch]);
 
   return (
     <div className="cart-window" ref={cartRef}>

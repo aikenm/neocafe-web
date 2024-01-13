@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Menu from "./main_subpages/Menu";
 import Orders from "./main_subpages/Orders";
 import Profile from "./main_subpages/Profile";
@@ -16,6 +16,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { activePage } = useParams();
+  const location = useLocation();
 
   const renderContent = () => {
     switch (activePage) {
@@ -31,7 +32,10 @@ const MainPage = () => {
   };
 
   const isActive = (pageName) => {
-    return activePage === pageName ? "sidebar-button active" : "sidebar-button";
+    const currentPath = location.pathname; // Get the full path
+    return currentPath.includes(pageName)
+      ? "sidebar-button active"
+      : "sidebar-button";
   };
 
   useEffect(() => {

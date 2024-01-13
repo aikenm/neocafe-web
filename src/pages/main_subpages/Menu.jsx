@@ -40,6 +40,7 @@ const Menu = () => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [wasCartInitiallyEmpty, setWasCartInitiallyEmpty] = useState(false);
   const [tempTotalAmount, setTempTotalAmount] = useState(0);
+  const orderAccepted = useSelector((state) => state.order.orderAccepted);
 
   const addToCart = (item) => {
     if (editingOrder && Array.isArray(editingOrder.items)) {
@@ -131,7 +132,14 @@ const Menu = () => {
       );
       setTempTotalAmount(editingOrderTotal);
     }
-  }, [selectedOrder, editingOrder, tempItems, showCartWindow, dispatch]);
+  }, [
+    selectedOrder,
+    editingOrder,
+    tempItems,
+    showCartWindow,
+    orderAccepted,
+    dispatch,
+  ]);
 
   return (
     <div className="menu-page">

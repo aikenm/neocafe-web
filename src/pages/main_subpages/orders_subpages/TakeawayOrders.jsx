@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectOrder,
@@ -11,6 +11,7 @@ import {
   saveTempItems,
   clearTempItems,
 } from "../../../store/cartSlice";
+import { useParams, useNavigate } from "react-router-dom";
 import OrderCard from "../../../components/OrderCard";
 import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
@@ -35,10 +36,14 @@ const TakeawayOrders = () => {
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const tempItems = useSelector((state) => state.cart.tempItems);
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
-  const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
+  const { status } = useParams();
+  const navigate = useNavigate();
+  const [activeStatus, setActiveStatus] = useState(
+    status || orderStatuses[0].key
+  );
 
   const handleOrderSelect = (order) => {
-    if (cartItems.length > 0 && !editingOrder) {
+    if (cartItems.length > 0 && !editingOrder && tempItems.length === 0) {
       dispatch(saveTempItems(cartItems));
     }
     dispatch(selectOrder(order));
@@ -48,7 +53,7 @@ const TakeawayOrders = () => {
 
   const handleCloseCart = () => {
     dispatch(clearSelectedOrder());
-    if (tempItems.length > 0) {
+    if (tempItems.length > 0 && !selectedOrder) {
       dispatch(setItems(tempItems));
       dispatch(clearTempItems());
     } else if (tempItems.length === 0) {
@@ -63,6 +68,12 @@ const TakeawayOrders = () => {
   const filteredOrders = orders.filter(
     (order) => order.status === activeStatus
   );
+
+  useEffect(() => {
+    if (status && status !== activeStatus) {
+      setActiveStatus(status);
+    }
+  }, [status]);
 
   const renderOrdersContent = () => {
     return (
@@ -92,7 +103,10 @@ const TakeawayOrders = () => {
         {orderStatuses.map((status) => (
           <button
             key={status.key}
-            onClick={() => setActiveStatus(status.key)}
+            onClick={() => {
+              setActiveStatus(status.key);
+              navigate(`/main/orders/${status.key}`);
+            }}
             className={`status-button ${
               activeStatus === status.key ? "active" : ""
             }`}
