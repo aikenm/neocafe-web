@@ -65,10 +65,6 @@ const TakeawayOrders = () => {
     dispatch(updateOrder({ orderId, newOrderData: updatedOrderData }));
   };
 
-  const filteredOrders = orders.filter(
-    (order) => order.status === activeStatus
-  );
-
   useEffect(() => {
     if (status && status !== activeStatus) {
       setActiveStatus(status);
@@ -76,10 +72,14 @@ const TakeawayOrders = () => {
   }, [status]);
 
   const renderOrdersContent = () => {
+    const filteredAndSortedOrders = orders
+      .filter((order) => order.status === activeStatus)
+      .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
     return (
       <div className={`order-cards-container status-${activeStatus}`}>
-        {filteredOrders.length > 0 ? (
-          filteredOrders.map((order) => (
+        {filteredAndSortedOrders.length > 0 ? (
+          filteredAndSortedOrders.map((order) => (
             <OrderCard
               key={order.id}
               order={order}

@@ -41,11 +41,14 @@ export const orderSlice = createSlice({
       
       updateOrderStatus: (state, action) => {
         const { orderId, newStatus } = action.payload;
-        const order = state.orders.find(order => order.id === orderId);
-        if (order) {
-          order.status = newStatus;
+        const orderIndex = state.orders.findIndex(order => order.id === orderId);
+      
+        if (orderIndex >= 0) {
+          state.orders[orderIndex].status = newStatus;
+          state.orders[orderIndex].timestamp = new Date().toISOString();
         }
-      },      
+      },
+      
       removeOrderItem: (state, action) => {
         const { orderId, itemId } = action.payload;
         const orderToUpdate = state.orders.find(order => order.id === orderId);

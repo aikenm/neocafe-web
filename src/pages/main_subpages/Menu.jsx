@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MenuCard from "../../components/MenuCard";
 import CartWindow from "../../components/CartWindow";
+import MenuDetailModal from "../../components/MenuDetailModal";
 import { menuItems } from "../../common";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -41,6 +42,7 @@ const Menu = () => {
   const [wasCartInitiallyEmpty, setWasCartInitiallyEmpty] = useState(false);
   const [tempTotalAmount, setTempTotalAmount] = useState(0);
   const orderAccepted = useSelector((state) => state.order.orderAccepted);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
   const addToCart = (item) => {
     if (editingOrder && Array.isArray(editingOrder.items)) {
@@ -66,6 +68,14 @@ const Menu = () => {
     } else {
       dispatch(addItem(item));
     }
+  };
+
+  const openMenuDetail = (item) => {
+    setSelectedMenuItem(item);
+  };
+
+  const closeMenuDetail = () => {
+    setSelectedMenuItem(null);
   };
 
   const toggleCartWindow = () => {
@@ -97,6 +107,7 @@ const Menu = () => {
         price={item.price}
         image={item.image}
         onAdd={() => addToCart(item)}
+        onClick={() => openMenuDetail(item)}
       />
     ));
   };
@@ -174,6 +185,13 @@ const Menu = () => {
         </button>
         {showCartWindow && (
           <CartWindow onClose={() => setShowCartWindow(false)} />
+        )}
+        {selectedMenuItem && (
+          <MenuDetailModal
+            item={selectedMenuItem}
+            onClose={closeMenuDetail}
+            onAdd={addToCart}
+          />
         )}
       </div>
     </div>

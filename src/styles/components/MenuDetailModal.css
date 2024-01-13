@@ -1,0 +1,117 @@
+.menu-detail-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .menu-detail-modal {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 30px;
+    width: 580px;
+    position: relative;
+    padding: 30px;
+  }
+  
+  .menu-detail-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .menu-detail-close:hover {
+    scale: 1.2;
+  }
+
+  .menu-detail-header {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    margin-bottom: 30px;
+  }
+
+  .menu-detail-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .menu-detail-content {
+    display: flex;
+    height: 165px;
+    margin-bottom: 20px;
+  }
+  
+  .menu-detail-image {
+    width: 165px;
+    height: 165px;
+    background-color: antiquewhite;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .menu-detail-description {
+    font-size: 18px;
+    padding: 0px 10px 0px 20px;
+}
+
+.menu-detail-ingredients-wrapper {
+}
+
+.ingredients-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.menu-detail-ingredients {
+    margin: 10px 0px 0px 0px;
+    padding: 0px 20px;
+    text-align: left;
+}
+
+.ingredient {
+    font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.menu-detail-add-button {
+    margin-top: 30px;
+  height: 64px;
+  border-radius: 15px;
+  background-color: #FF8B5B;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.menu-detail-add-button:hover {
+  background-color: #d06f4d;
+  scale: 0.97;
+}
+   
+  
