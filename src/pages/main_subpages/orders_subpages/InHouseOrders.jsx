@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectOrder,
+  setEditingOrder,
+  clearSelectedOrder,
+  updateOrder,
+} from "../../../store/orderSlice";
+import {
+  setItems,
+  saveTempItems,
+  clearTempItems,
+} from "../../../store/cartSlice";
+import { useParams, useNavigate } from "react-router-dom";
+import OrderCard from "../../../components/OrderCard";
+import CartWindow from "../../../components/CartWindow";
 import newOrdersIcon from "../../../images/new_orders.svg";
 import inProgressOrdersIcon from "../../../images/in-progress_orders.svg";
 import readyOrdersIcon from "../../../images/ready_orders.svg";
 import cancelledOrdersIcon from "../../../images/cancelled_orders.svg";
 import completeOrdersIcon from "../../../images/complete_orders.svg";
 import "../../../styles/pages/main_subpages/orders_page.css";
+
 const orderStatuses = [
   { key: "new", text: "Новый", icon: newOrdersIcon },
   { key: "inProgress", text: "В процессе", icon: inProgressOrdersIcon },
@@ -15,31 +30,71 @@ const orderStatuses = [
 ];
 
 const InHouseOrders = () => {
-  const [activeStatus, setActiveStatus] = useState(orderStatuses[0].key);
-  const [orders, setOrders] = useState([]);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.order.orders);
+  const cartItems = useSelector((state) => state.cart.items);
+  const editingOrder = useSelector((state) => state.order.editingOrder);
+  const tempItems = useSelector((state) => state.cart.tempItems);
+  const selectedOrder = useSelector((state) => state.order.selectedOrder);
+  const { status } = useParams();
+  const navigate = useNavigate();
+  const [activeStatus, setActiveStatus] = useState(
+    status || orderStatuses[0].key
+  );
 
-  //   useEffect(() => {
-  //     const fetchOrders = async (status) => {
-  //       try {
-  //         const response = await axios.get(`/api/orders/${status}`);
-  //         setOrders(response.data);
-  //       } catch (error) {
-  //         console.error("Error fetching orders", error);
-  //       }
-  //     };
+  const handleOrderSelect = (order) => {
+    if (cartItems.length > 0 && !editingOrder && tempItems.length === 0) {
+      dispatch(saveTempItems(cartItems));
+    }
+    dispatch(selectOrder(order));
+    dispatch(setEditingOrder(order));
+    dispatch(setItems(order.items));
+  };
 
-  //     fetchOrders(activeStatus);
-  //   }, [activeStatus]);
+  const handleCloseCart = () => {
+    dispatch(clearSelectedOrder());
+    if (tempItems.length > 0 && !selectedOrder) {
+      dispatch(setItems(tempItems));
+      dispatch(clearTempItems());
+    } else if (tempItems.length === 0) {
+      dispatch(setItems([]));
+    }
+  };
+
+  const handleEditOrder = (orderId, updatedOrderData) => {
+    dispatch(updateOrder({ orderId, newOrderData: updatedOrderData }));
+  };
+
+  useEffect(() => {
+    if (status && status !== activeStatus) {
+      setActiveStatus(status);
+    }
+  }, [status]);
 
   const renderOrdersContent = () => {
+    const filteredAndSortedOrders = orders
+      .filter(
+        (order) =>
+          order.status === activeStatus && order.orderType === "inhouse"
+      )
+      .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
     return (
-      <div className={`orders-content status-${activeStatus}`}>
-        {orders.length > 0 ? (
-          orders.map((order) => (
-            <div key={order.id}>{/* Render your order details */}</div>
+      <div className={`order-cards-container status-${activeStatus}`}>
+        {filteredAndSortedOrders.length > 0 ? (
+          filteredAndSortedOrders.map((order) => (
+            <OrderCard
+              key={order.id}
+              order={order}
+              onSelect={handleOrderSelect}
+              onEdit={handleEditOrder}
+            />
           ))
         ) : (
-          <p>No orders found for {activeStatus}</p>
+          <span className="not-found-orders">Нет заказов</span>
+        )}
+        {selectedOrder && (
+          <CartWindow order={selectedOrder} onClose={handleCloseCart} />
         )}
       </div>
     );
@@ -51,7 +106,10 @@ const InHouseOrders = () => {
         {orderStatuses.map((status) => (
           <button
             key={status.key}
-            onClick={() => setActiveStatus(status.key)}
+            onClick={() => {
+              setActiveStatus(status.key);
+              navigate(`/main/orders/${status.key}`);
+            }}
             className={`status-button ${
               activeStatus === status.key ? "active" : ""
             }`}

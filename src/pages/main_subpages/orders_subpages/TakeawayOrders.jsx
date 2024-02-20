@@ -73,7 +73,10 @@ const TakeawayOrders = () => {
 
   const renderOrdersContent = () => {
     const filteredAndSortedOrders = orders
-      .filter((order) => order.status === activeStatus)
+      .filter(
+        (order) =>
+          order.status === activeStatus && order.orderType === "takeaway"
+      )
       .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
     return (

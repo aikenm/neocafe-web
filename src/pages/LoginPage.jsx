@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import countries from "./countriesNum";
 import "../styles/pages/login_page.css";
-import axios from "axios";
 import arrowBack from "../images/arrow-left.svg";
 import arrowDown from "../images/drop-down.svg";
 
@@ -15,55 +14,12 @@ const LoginPage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
-  const selectCountry = (country) => {
-    setSelectedCountry(country);
-    setDropdownOpen(false);
-  };
-
-  const fullPhoneNumber = `${selectedCountry.value}${phone}`;
-
-  const sendPhoneNumber = async () => {
-    try {
-      const response = await axios.post(
-        "https://neo-cafe.org.kg/api-admin/barista/login/",
-        {
-          phone_number: fullPhoneNumber,
-        }
-      );
-      if (response.status === 200) {
-        setCurrentView("form2");
-      }
-    } catch (error) {
-      // Handle error, e.g., display an error message
-      console.error("Error sending phone number:", error);
-    }
-  };
-
-  const verifyCode = async () => {
-    try {
-      const response = await axios.post(
-        "https://neo-cafe.org.kg/api-admin/barista/check-verification-code/",
-        {
-          otp: code,
-        }
-      );
-      // Save access token to localStorage
-      localStorage.setItem("accessToken", response.data.access);
-      localStorage.setItem("refreshToken", response.data.refresh);
-
-      navigate("/main/orders");
-    } catch (error) {
-      // Handle error, e.g., display an error message
-      console.error("Error verifying code:", error);
-    }
-  };
-
   const handleRequestCode = () => {
-    sendPhoneNumber();
+    setCurrentView("form2");
   };
 
   const handleVerifyCode = () => {
-    verifyCode();
+    navigate("/main/orders/new");
   };
 
   const handleResendCode = () => {
@@ -76,6 +32,13 @@ const LoginPage = () => {
   };
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  const selectCountry = (country) => {
+    setSelectedCountry(country);
+    setDropdownOpen(false);
+  };
+
+  const fullPhoneNumber = selectedCountry.value + phone;
 
   return (
     <div className="login-page">

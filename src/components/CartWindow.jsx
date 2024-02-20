@@ -20,6 +20,7 @@ const CartWindow = ({ order, onClose }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const editingOrder = useSelector((state) => state.order.editingOrder);
   const [orderEdited, setOrderEdited] = useState(false);
+  const [isAddingToOrder, setIsAddingToOrder] = useState(false);
 
   const personalData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ const CartWindow = ({ order, onClose }) => {
   );
 
   const isOrderNew = order ? order.status === "new" : true;
+  const showAddButton =
+    selectedOrder && selectedOrder.status === "new" && !isAddingToOrder;
 
   const cartRef = useRef();
 
@@ -135,6 +138,7 @@ const CartWindow = ({ order, onClose }) => {
   };
 
   const handleAddMoreItems = () => {
+    setIsAddingToOrder(true);
     dispatch(setEditingOrder(selectedOrder));
     setOrderEdited(true);
     navigate("/main/menu");
@@ -216,9 +220,8 @@ const CartWindow = ({ order, onClose }) => {
   }, [handleClickOutside]);
 
   useEffect(() => {
-    return () => {
-      dispatch(setOrderAccepted(false));
-    };
+    setIsAddingToOrder(false);
+    dispatch(setOrderAccepted(false));
   }, [dispatch]);
 
   return (
@@ -265,13 +268,13 @@ const CartWindow = ({ order, onClose }) => {
             />
           ))
         )}
-        {isOrderNew && itemsToShow.length < 3 && (
+        {showAddButton && itemsToShow.length < 3 && (
           <button className="cart-add-button" onClick={handleAddMoreItems}>
             Добавить
           </button>
         )}
       </div>
-      {isOrderNew && itemsToShow.length >= 3 && (
+      {showAddButton && itemsToShow.length >= 3 && (
         <button
           className="cart-add-button fixed-position"
           onClick={handleAddMoreItems}
