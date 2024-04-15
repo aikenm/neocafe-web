@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const profileSlice = createSlice({
   name: "profile",
   initialState: {
-    firstName: "Толгонай",
-    lastName: "Жапарова",
+    firstName: "Aйкен",
+    lastName: "Манасбеков",
     phone: "+997709070809",
-    birthDate: "01.03.1994",
+    birthDate: "07.11.2001",
     workSchedule: {
       monday: true,
       tuesday: false,
