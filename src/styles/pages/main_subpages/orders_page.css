@@ -24,14 +24,14 @@
 }
 
 .header-button:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px #DCEDFF;
 }
 
 .header-button.active {
-    background-color: #FF8B5B;
+    background-color: #F47356;
     color: #fff;
     cursor: default;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px #F47356;
 }
 
 .orders-status-header {
@@ -67,7 +67,7 @@
 }
 
 .status-button.active {
-    background-color: #FF8B5B;
+    background-color: #F47356;
     color: white;
     cursor: default;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

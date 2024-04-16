@@ -6,20 +6,21 @@
     justify-content: space-between;
     padding: 20px;
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .menu-card:hover {
+    scale: 1.02;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .menu-card-image {
-    width: 104px;
-    height: 104px; 
+    width: 120px;
+    height: 120px; 
     object-fit: cover;
-    border-radius: 24px;
+    border-radius: 10px;
     background-color: blanchedalmond;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   }
@@ -46,14 +47,18 @@
   }
   
   .menu-card-add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 38px; 
-    height: 38px; 
+    bottom: 0;
+    right: 0;
+    width: 68px; 
+    height: 47px; 
     border: none;
-    border-radius: 50%;
-    background-color: #FF8B5B;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #F47356;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -62,6 +67,6 @@
   }
 
   .menu-card-add-button:hover {
-    background-color: #d77350;
+    background-color: #bf5a45;
   }
   

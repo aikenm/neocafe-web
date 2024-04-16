@@ -13,7 +13,7 @@
     justify-content: center;
     width: 117px;
     height: 100vh;
-    background-color: #023462;
+    background-color: #5B7E9A;
 }
 
 .notifications-button {
@@ -56,7 +56,7 @@
 }
 
 .sidebar-button:hover {
-    background-color: #022a50;
+    background-color: #425b70;
 }
 
 .sidebar-button-icon {
@@ -64,9 +64,9 @@
 }
 
 .sidebar-button.active {
-    border-left: 3px solid #FF8B5B;
+    border-left: 3px solid #F47356;
     padding-left: 0;
-    color: #FF8B5B;
+    color: #ff7c60;
     .sidebar-button-icon {
         filter: brightness(0) saturate(100%) invert(56%) sepia(58%) saturate(484%) hue-rotate(330deg) brightness(101%) contrast(101%)
     }

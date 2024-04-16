@@ -74,15 +74,15 @@
     cursor: pointer;
     font-weight: 600;
     background-color: transparent; 
-    color: #FF8B5B; 
-    border: 2px solid #FF8B5B;
+    color: #F47356; 
+    border: 2px solid #F47356;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     transition: all 0.2s ease;
   }
 
   .order-button:hover {
-    background-color: #FF8B5B; 
+    background-color: #F47356; 
     color: #fff; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }

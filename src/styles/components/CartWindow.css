@@ -4,8 +4,8 @@
     right: 0;        
     width: 35%;      
     height: 100%;    
-    background-color: #00315D; 
-    box-shadow: -2px 0px 10px 0px #00315D;
+    background-color: #5B7E9A; 
+    box-shadow: -2px 0px 10px 0px #5B7E9A;
     z-index: 1000;  
     overflow-y: auto;
 }
@@ -77,9 +77,9 @@
     height: 56px;
     border: none;
     background: none;
-    border: 2px solid #FF8B5B;
+    border: 2px solid #F47356;
     border-radius: 10px;
-    color: #FF8B5B;
+    color: #F47356;
     font-size: 18px;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -141,7 +141,7 @@
     align-items: center;
     bottom: 30px;
     border: none;
-    background-color: #FF8B5B;
+    background-color: #F47356;
     border-radius: 10px;
     color: #fff;
     font-size: 18px;

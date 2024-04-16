@@ -19,7 +19,7 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    width: 707px;
+    width: 650px;
     height: 237px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -84,11 +84,11 @@
   .modal-confirm-button {
     background-color: transparent;
     color: #FF8B5B;
-    border: 2px solid #FF8B5B;
+    border: 2px solid #F47356;
   }
   
   .modal-cancel-button {
-    background-color: #FF8B5B;
+    background-color: #F47356;
     color: #fff;
   }
 

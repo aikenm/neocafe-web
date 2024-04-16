@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 
 const App = () => {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

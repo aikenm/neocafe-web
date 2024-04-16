@@ -9,8 +9,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FF8B5B;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F47356;
+    box-shadow: 0 4px 8px #F47356;
 }
 
 .menu-header-title {
@@ -49,7 +49,7 @@
 }
 
 .category-button.active {
-    background-color: #FF8B5B;
+    background-color: #F47356;
     color: white;
     cursor: default;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -78,16 +78,16 @@
     right: 30px;
     bottom: 23px;
     position: absolute;
-    width: 451px;
-    height: 83px;
-    background-color: #FF8B5B;
-    border-radius: 50px;
+    width: 420px;
+    height: 75px;
+    background-color: #F47356;
+    border-radius: 25px;
     padding: 0px 30px;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     color: #fff;
     border: none;
-    font-size: 26px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -97,7 +97,7 @@
 }
 
 .cart-button:hover {
-    background-color: #d77350;
+    background-color: #bf5a45;
 }
 
 .total-price {
