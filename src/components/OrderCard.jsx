@@ -81,7 +81,7 @@ const OrderCard = ({ order, onSelect }) => {
       )}
       <div className="order-info">
         <div className="order-header">
-          <div className="order-number">{orderNumber}</div>
+          <div className="order-number">M {id}</div>
           <div className="customer-name">{customerName}</div>
         </div>
         <div className="order-items">

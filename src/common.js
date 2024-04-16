@@ -258,7 +258,6 @@ export const menuItems = {
 export const testOrders = [
   {
     id: "1",
-    orderNumber: "M-1",
     orderType: "takeaway",
     customerName: "Алексей",
     items: [
@@ -269,7 +268,6 @@ export const testOrders = [
   },
   {
     id: "2",
-    orderNumber: "M-2",
     orderType: "takeaway",
     customerName: "Санжар",
     items: [
@@ -283,7 +281,6 @@ export const testOrders = [
   },
   {
     id: "3",
-    orderNumber: "M-3",
     orderType: "takeaway",
     customerName: "Болот",
     items: [
@@ -296,7 +293,6 @@ export const testOrders = [
 
   {
     id: "4",
-    orderNumber: "M-4",
     orderType: "takeaway",
     customerName: "Ольга",
     items: [
@@ -307,7 +303,6 @@ export const testOrders = [
   },
   {
     id: "5",
-    orderNumber: "M-5",
     orderType: "takeaway",
     customerName: "Бекжан",
     items: [
@@ -319,7 +314,6 @@ export const testOrders = [
   },
   {
     id: "6",
-    orderNumber: "M-6",
     orderType: "takeaway",
     customerName: "Айбек",
     items: [
@@ -331,7 +325,6 @@ export const testOrders = [
 
   {
     id: "7",
-    orderNumber: "M-7",
     orderType: "takeaway",
     customerName: "Айжан",
     items: [
@@ -343,7 +336,6 @@ export const testOrders = [
   },
   {
     id: "8",
-    orderNumber: "M-8",
     orderType: "takeaway",
     customerName: "Дастан",
     items: [
@@ -354,7 +346,6 @@ export const testOrders = [
   },
   {
     id: "9",
-    orderNumber: "M-9",
     orderType: "takeaway",
     customerName: "Азамат",
     items: [
@@ -366,7 +357,6 @@ export const testOrders = [
 
   {
     id: "10",
-    orderNumber: "M-10",
     orderType: "takeaway",
     customerName: "Ольга",
     items: [
@@ -377,7 +367,6 @@ export const testOrders = [
   },
   {
     id: "11",
-    orderNumber: "M-11",
     orderType: "takeaway",
     customerName: "Иван",
     items: [
@@ -391,7 +380,6 @@ export const testOrders = [
 
   {
     id: "12",
-    orderNumber: "M-12",
     orderType: "inhouse",
     customerName: "Айгерим",
     items: [
@@ -402,7 +390,6 @@ export const testOrders = [
   },
   {
     id: "13",
-    orderNumber: "M-13",
     orderType: "inhouse",
     customerName: "Асан",
     items: [
@@ -416,7 +403,6 @@ export const testOrders = [
   },
   {
     id: "14",
-    orderNumber: "M-14",
     orderType: "inhouse",
     customerName: "Айбике",
     items: [
@@ -429,7 +415,6 @@ export const testOrders = [
 
   {
     id: "15",
-    orderNumber: "M-15",
     orderType: "inhouse",
     customerName: "Айжана",
     items: [
@@ -440,7 +425,6 @@ export const testOrders = [
   },
   {
     id: "16",
-    orderNumber: "M-16",
     orderType: "inhouse",
     customerName: "Бекжан",
     items: [
@@ -452,7 +436,6 @@ export const testOrders = [
   },
   {
     id: "17",
-    orderNumber: "M-17",
     orderType: "inhouse",
     customerName: "Айбек",
     items: [
@@ -464,7 +447,6 @@ export const testOrders = [
 
   {
     id: "18",
-    orderNumber: "M-18",
     orderType: "inhouse",
     customerName: "Айжан",
     items: [
@@ -476,7 +458,6 @@ export const testOrders = [
   },
   {
     id: "19",
-    orderNumber: "M-19",
     orderType: "inhouse",
     customerName: "Дастан",
     items: [
@@ -487,7 +468,6 @@ export const testOrders = [
   },
   {
     id: "20",
-    orderNumber: "M-20",
     orderType: "inhouse",
     customerName: "Азамат",
     items: [
@@ -499,7 +479,6 @@ export const testOrders = [
 
   {
     id: "21",
-    orderNumber: "M-21",
     orderType: "inhouse",
     customerName: "Александр",
     items: [

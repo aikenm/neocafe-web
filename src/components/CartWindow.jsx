@@ -73,8 +73,8 @@ const CartWindow = ({ order, onClose }) => {
         default:
           title = "Заказ";
       }
-      if (editingOrder.orderNumber) {
-        title += ` (${editingOrder.orderNumber})`;
+      if (editingOrder.id) {
+        title += ` (M ${editingOrder.id})`;
       }
       return title;
     }
@@ -91,8 +91,8 @@ const CartWindow = ({ order, onClose }) => {
         default:
           title = "Заказ";
       }
-      if (order.orderNumber) {
-        title += ` (${order.orderNumber})`;
+      if (order.id) {
+        title += ` (${order.id})`;
       }
       return title;
     }
@@ -147,10 +147,8 @@ const CartWindow = ({ order, onClose }) => {
   const handleOrderAction = () => {
     if (!selectedOrder) {
       const newOrder = {
-        id: `order-${Date.now()}`,
-        orderNumber: "M-X",
         orderType: "takeaway",
-        customerName: personalData.phone,
+        customerName: personalData.firstName,
         items: [...cartItems],
         status: "new",
       };
@@ -241,7 +239,7 @@ const CartWindow = ({ order, onClose }) => {
       <div className="cart-order-info">
         {order && (
           <>
-            <span className="cart-order-number">{order.orderNumber}</span>
+            <span className="cart-order-number">M {order.id}</span>
             <span className="cart-order-client">{order.customerName}</span>
           </>
         )}
