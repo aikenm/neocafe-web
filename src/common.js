@@ -480,7 +480,7 @@ export const testOrders = [
   {
     id: "21",
     orderType: "inhouse",
-    customerName: "Александр",
+    customerName: "Сергей",
     items: [
       { ...menuItems.cocktails[0], quantity: 1 },
       { ...menuItems.coffee[3], quantity: 1 },
