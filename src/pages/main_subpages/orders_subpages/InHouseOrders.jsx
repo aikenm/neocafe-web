@@ -119,6 +119,7 @@ const InHouseOrders = () => {
           </button>
         ))}
       </div>
+
       {renderOrdersContent()}
     </div>
   );
