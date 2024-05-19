@@ -1,23 +1,22 @@
-import americano from "./images/photos/Американо";
-import capuccino from "./images/photos/Капучино";
-import bagrovyi_zakat from "./images/photos/Багровый закат";
-import brauni from "./images/photos/Брауни";
-import gintonik from "./images/photos/Джин Тоник";
-import domashniy_pirog from "./images/photos/Домашний пирог";
-import greentea from "./images/photos/Зеленый чай";
-import kruassan from "./images/photos/Круасаны";
-import latte from "./images/photos/Латте";
-import machiato from "./images/photos/Махиато";
-import mohito from "./images/photos/Мохито";
-import beer from "./images/photos/Пиво с вином";
-import san_sebastian from "./images/photos/Сан-себастьян";
-import teramisu from "./images/photos/Терамису";
-import tort from "./images/photos/Торт";
-import teawithmilk from "./images/photos/Чай с молоком";
-import blacktea from "./images/photos/Черный чай";
-import cheesecake from "./images/photos/Чизкейк";
-import espresso from "./images/photos/Эспрессо";
-import applepirog from "./images/photos/Яблочный пирог";
+import americano from "./images/photos/Американо.jpg";
+import capuccino from "./images/photos/Капучино.jpg";
+import bagrovyi_zakat from "./images/photos/Багровый закат.jpg";
+import brauni from "./images/photos/Брауни.jpg";
+import gintonik from "./images/photos/Джин Тоник.jpg";
+import domashniy_pirog from "./images/photos/Домашний пирог.jpg";
+import greentea from "./images/photos/Зеленый Чай.jpg";
+import kruassan from "./images/photos/Круасаны.jpg";
+import latte from "./images/photos/Латте.jpg";
+import machiato from "./images/photos/Макиато.jpg";
+import mohito from "./images/photos/Мохито.jpg";
+import san_sebastian from "./images/photos/Сан-себастьян.jpg";
+import teramisu from "./images/photos/Терамису.jpg";
+import panakota from "./images/photos/Панакота.jpg";
+import teawithmilk from "./images/photos/Чай с молоком.jpg";
+import blacktea from "./images/photos/Черный чай.jpg";
+import cheesecake from "./images/photos/Чизкейк.jpg";
+import espresso from "./images/photos/Эспрессо.jpg";
+import applepirog from "./images/photos/Яблочный пирог.jpg";
 
 export const menuItems = {
   coffee: [
@@ -119,7 +118,7 @@ export const menuItems = {
       id: 9,
       name: "Панакота",
       price: 99,
-      image: tort,
+      image: panakota,
       description: "Итальянский десерт на основе сливок, сахара и желатина.",
       ingredients: [
         "500 мл сливок",
@@ -210,14 +209,6 @@ export const menuItems = {
     },
     {
       id: 16,
-      name: "Пиво с вином",
-      price: 199,
-      image: beer,
-      description: "Пивной напиток в сочетании с вином.",
-      ingredients: ["100 мл пива", "50 мл вина"],
-    },
-    {
-      id: 17,
       name: "Джин Тоник",
       price: 350,
       image: gintonik,
@@ -228,7 +219,7 @@ export const menuItems = {
   ],
   tea: [
     {
-      id: 18,
+      id: 17,
       name: "Зеленый чай",
       price: 89,
       image: greentea,
@@ -237,7 +228,7 @@ export const menuItems = {
       ingredients: ["2 г зеленого чайного листа", "250 мл горячей воды"],
     },
     {
-      id: 19,
+      id: 18,
       name: "Черный чай",
       price: 99,
       image: blacktea,
@@ -245,7 +236,7 @@ export const menuItems = {
       ingredients: ["2 г черного чайного листа", "250 мл горячей воды"],
     },
     {
-      id: 20,
+      id: 19,
       name: "Чай с молоком",
       price: 100,
       image: teawithmilk,

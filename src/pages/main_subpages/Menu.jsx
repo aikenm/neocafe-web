@@ -16,11 +16,7 @@ import bakeryIcon from "../../images/bakery-icon.svg";
 import dessertsIcon from "../../images/desserts-icon.svg";
 import coctailsIcon from "../../images/coctails-icon.svg";
 import teaIcon from "../../images/tea-icon.svg";
-import {
-  clearSelectedOrder,
-  setEditingOrder,
-  updateOrder,
-} from "../../store/orderSlice";
+import { setEditingOrder, updateOrder } from "../../store/orderSlice";
 
 const categories = [
   { key: "coffee", text: "Кофе", icon: coffeeIcon },
