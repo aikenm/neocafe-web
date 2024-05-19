@@ -40,10 +40,10 @@ const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
       <div className="cart-item-details">
         <div className="cart-item-name">{item.name}</div>
         <div className="cart-item-quantity-wrapper">
-          <div className="cart-item-price">{item.price} с</div>
-          <div className="cart-item-quantity-block">
-            {isOrderNew && (
-              <>
+          {isOrderNew ? (
+            <>
+              <div className="cart-item-price">{item.price} с</div>
+              <div className="cart-item-quantity-block">
                 <button onClick={handleDecrease} className="quantity-decrease">
                   <img src={minusIcon} alt="Decrease" className="minus-icon" />
                 </button>
@@ -51,9 +51,16 @@ const CartItem = ({ item, isOrderNew, onQuantityChange, onDeleteItem }) => {
                 <button onClick={handleIncrease} className="quantity-increase">
                   <img src={plusIcon} alt="Increase" className="plus-icon" />
                 </button>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="cart-item-price">
+                {item.price * item.quantity} с
+              </div>
+              <div className="cart-item-non-new">x {item.quantity}</div>
+            </>
+          )}
         </div>
         {isOrderNew && showDelete && (
           <button

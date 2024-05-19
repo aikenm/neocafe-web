@@ -5,7 +5,7 @@ import MainPage from "./pages/MainPage";
 
 const App = () => {
   useEffect(() => {
-    // localStorage.clear();
+    localStorage.clear();
   }, []);
 
   return (
