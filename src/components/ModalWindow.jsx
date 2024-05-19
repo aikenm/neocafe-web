@@ -3,8 +3,12 @@ import "../styles/components/ModalWindow.css";
 import closeIcon from "../images/cancelIcon.svg";
 
 const ModalWindow = ({ title, message, onConfirm, onCancel }) => {
+  const handleOverlayClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-window">
         <div className="modal-header">
           <h2>{title}</h2>

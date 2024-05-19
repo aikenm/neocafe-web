@@ -81,7 +81,7 @@ const OrderCard = ({ order, onSelect }) => {
       )}
       <div className="order-info">
         <div className="order-header">
-          <div className="order-number">M {id}</div>
+          <div className="order-number">№{id}</div>
           <div className="customer-name">{customerName}</div>
         </div>
         <div className="order-items">
@@ -100,7 +100,7 @@ const OrderCard = ({ order, onSelect }) => {
       {showCancelModal && (
         <ModalWindow
           title="Отменить заказ"
-          message={`Вы действительно хотите отменить заказ ${orderNumber}?`}
+          message={`Вы действительно хотите отменить заказ №${id}?`}
           onConfirm={confirmCancel}
           onCancel={closeCancelModal}
         />

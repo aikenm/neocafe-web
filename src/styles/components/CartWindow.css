@@ -4,9 +4,9 @@
     right: 0;        
     width: 35%;      
     height: 100%;    
-    background-color: #5B7E9A; 
+    background-color: #4c6a82; 
     box-shadow: -2px 0px 10px 0px #5B7E9A;
-    z-index: 1000;  
+    z-index: 900;  
     overflow-y: auto;
 }
 
