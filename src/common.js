@@ -482,4 +482,247 @@ export const testOrders = [
     ],
     status: "completed",
   },
+  {
+    id: "22",
+    orderType: "takeaway",
+    customerName: "Жанара",
+    items: [
+      { ...menuItems.coffee[1], quantity: 2 },
+      { ...menuItems.pastries[1], quantity: 1 },
+      { ...menuItems.desserts[4], quantity: 2 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "23",
+    orderType: "takeaway",
+    customerName: "Ержан",
+    items: [
+      { ...menuItems.tea[0], quantity: 2 },
+      { ...menuItems.pastries[2], quantity: 1 },
+      { ...menuItems.desserts[0], quantity: 1 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "24",
+    orderType: "takeaway",
+    customerName: "Канат",
+    items: [
+      { ...menuItems.cocktails[1], quantity: 1 },
+      { ...menuItems.desserts[2], quantity: 3 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "25",
+    orderType: "takeaway",
+    customerName: "Майрам",
+    items: [
+      { ...menuItems.coffee[2], quantity: 2 },
+      { ...menuItems.pastries[0], quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "26",
+    orderType: "takeaway",
+    customerName: "Данияр",
+    items: [
+      { ...menuItems.tea[1], quantity: 1 },
+      { ...menuItems.pastries[2], quantity: 2 },
+    ],
+    status: "new",
+  },
+  {
+    id: "27",
+    orderType: "takeaway",
+    customerName: "Жанара",
+    items: [
+      { ...menuItems.coffee[3], quantity: 1 },
+      { ...menuItems.desserts[1], quantity: 2 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "28",
+    orderType: "takeaway",
+    customerName: "Мурат",
+    items: [
+      { ...menuItems.cocktails[2], quantity: 1 },
+      { ...menuItems.desserts[0], quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "29",
+    orderType: "takeaway",
+    customerName: "Айгуль",
+    items: [
+      { ...menuItems.coffee[1], quantity: 2 },
+      { ...menuItems.pastries[1], quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "30",
+    orderType: "takeaway",
+    customerName: "Сауле",
+    items: [
+      { ...menuItems.tea[0], quantity: 1 },
+      { ...menuItems.desserts[4], quantity: 2 },
+    ],
+    status: "new",
+  },
+  {
+    id: "31",
+    orderType: "takeaway",
+    customerName: "Алишер",
+    items: [
+      { ...menuItems.coffee[2], quantity: 1 },
+      { ...menuItems.pastries[2], quantity: 1 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "32",
+    orderType: "takeaway",
+    customerName: "Гульнур",
+    items: [
+      { ...menuItems.cocktails[0], quantity: 1 },
+      { ...menuItems.desserts[2], quantity: 3 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "33",
+    orderType: "takeaway",
+    customerName: "Айдос",
+    items: [
+      { ...menuItems.coffee[0], quantity: 2 },
+      { ...menuItems.pastries[0], quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "34",
+    orderType: "inhouse",
+    customerName: "Камиля",
+    items: [
+      { ...menuItems.coffee[0], quantity: 2 },
+      { ...menuItems.pastries[1], quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "35",
+    orderType: "inhouse",
+    customerName: "Мурат",
+    items: [
+      { ...menuItems.cocktails[2], quantity: 1 },
+      { ...menuItems.desserts[3], quantity: 1 },
+      { ...menuItems.coffee[2], quantity: 2 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "36",
+    orderType: "inhouse",
+    customerName: "Гулнара",
+    items: [
+      { ...menuItems.cocktails[0], quantity: 1 },
+      { ...menuItems.pastries[2], quantity: 2 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "37",
+    orderType: "inhouse",
+    customerName: "Айжан",
+    items: [
+      { ...menuItems.coffee[1], quantity: 2 },
+      { ...menuItems.desserts[4], quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "38",
+    orderType: "inhouse",
+    customerName: "Ерлан",
+    items: [
+      { ...menuItems.coffee[0], quantity: 1 },
+      { ...menuItems.pastries[1], quantity: 2 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "39",
+    orderType: "inhouse",
+    customerName: "Асия",
+    items: [
+      { ...menuItems.cocktails[1], quantity: 1 },
+      { ...menuItems.desserts[2], quantity: 3 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "40",
+    orderType: "inhouse",
+    customerName: "Бекзат",
+    items: [
+      { ...menuItems.coffee[0], quantity: 2 },
+      { ...menuItems.desserts[3], quantity: 1 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "41",
+    orderType: "inhouse",
+    customerName: "Салтанат",
+    items: [
+      { ...menuItems.cocktails[2], quantity: 1 },
+      { ...menuItems.pastries[2], quantity: 1 },
+    ],
+    status: "completed",
+  },
+  {
+    id: "42",
+    orderType: "takeaway",
+    customerName: "Ермек",
+    items: [
+      { ...menuItems.tea[0], quantity: 1 },
+      { ...menuItems.desserts[0], quantity: 2 },
+    ],
+    status: "inProgress",
+  },
+  {
+    id: "43",
+    orderType: "takeaway",
+    customerName: "Рустем",
+    items: [
+      { ...menuItems.coffee[1], quantity: 2 },
+      { ...menuItems.desserts[4], quantity: 1 },
+    ],
+    status: "new",
+  },
+  {
+    id: "44",
+    orderType: "takeaway",
+    customerName: "Алмаз",
+    items: [
+      { ...menuItems.cocktails[0], quantity: 1 },
+      { ...menuItems.pastries[2], quantity: 2 },
+    ],
+    status: "ready",
+  },
+  {
+    id: "45",
+    orderType: "takeaway",
+    customerName: "Бахтияр",
+    items: [
+      { ...menuItems.coffee[0], quantity: 2 },
+      { ...menuItems.desserts[1], quantity: 1 },
+    ],
+    status: "completed",
+  },
 ];

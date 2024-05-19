@@ -8,11 +8,12 @@
     height: 274px; 
     margin-bottom: 9px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .order-card:hover {
-    background-color: #DCEDFF;
+    cursor: pointer;
+    background-color: #c9daec;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 

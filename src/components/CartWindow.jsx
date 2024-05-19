@@ -74,7 +74,7 @@ const CartWindow = ({ order, onClose }) => {
           title = "Заказ";
       }
       if (editingOrder.id) {
-        title += ` (M ${editingOrder.id})`;
+        title += ` (№${editingOrder.id})`;
       }
       return title;
     }
@@ -223,75 +223,77 @@ const CartWindow = ({ order, onClose }) => {
   }, [dispatch]);
 
   return (
-    <div className="cart-window" ref={cartRef}>
-      <div className="cart-header">
-        <button
-          onClick={() => {
-            handleNavigateAway();
-            onClose();
-          }}
-          className="cart-close-button"
-        >
-          <img src={closeIcon} alt="Close" className="close-icon" />
-        </button>
-        <h2 className="cart-title">{getTitle()}</h2>
-      </div>
-      <div className="cart-order-info">
-        {order && (
-          <>
-            <span className="cart-order-number">M {order.id}</span>
-            <span className="cart-order-client">{order.customerName}</span>
-          </>
-        )}
-      </div>
-      <div className="cart-items-container">
-        {itemsToShow.length === 0 ? (
-          <div className="cart-empty">
-            <p className="empty-cart-text">Вы еще ничего не добавили</p>
-            <img
-              src={emptyCartImage}
-              alt="Empty Cart"
-              className="empty-cart-icon"
-            />
-          </div>
-        ) : (
-          itemsToShow.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              selectedOrder={selectedOrder}
-              isOrderNew={isOrderNew}
-              onQuantityChange={handleQuantityChange}
-              onDeleteItem={() => handleDeleteItem(item.id)}
-            />
-          ))
-        )}
-        {showAddButton && itemsToShow.length < 3 && (
-          <button className="cart-add-button" onClick={handleAddMoreItems}>
+    <div className="cart-window-overlay">
+      <div className="cart-window" ref={cartRef}>
+        <div className="cart-header">
+          <button
+            onClick={() => {
+              handleNavigateAway();
+              onClose();
+            }}
+            className="cart-close-button"
+          >
+            <img src={closeIcon} alt="Close" className="close-icon" />
+          </button>
+          <h2 className="cart-title">{getTitle()}</h2>
+        </div>
+        <div className="cart-order-info">
+          {order && (
+            <>
+              <span className="cart-order-number">№{order.id}</span>
+              <span className="cart-order-client">{order.customerName}</span>
+            </>
+          )}
+        </div>
+        <div className="cart-items-container">
+          {itemsToShow.length === 0 ? (
+            <div className="cart-empty">
+              <p className="empty-cart-text">Вы еще ничего не добавили</p>
+              <img
+                src={emptyCartImage}
+                alt="Empty Cart"
+                className="empty-cart-icon"
+              />
+            </div>
+          ) : (
+            itemsToShow.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                selectedOrder={selectedOrder}
+                isOrderNew={isOrderNew}
+                onQuantityChange={handleQuantityChange}
+                onDeleteItem={() => handleDeleteItem(item.id)}
+              />
+            ))
+          )}
+          {showAddButton && itemsToShow.length < 3 && (
+            <button className="cart-add-button" onClick={handleAddMoreItems}>
+              Добавить
+            </button>
+          )}
+        </div>
+        {showAddButton && itemsToShow.length >= 3 && (
+          <button
+            className="cart-add-button fixed-position"
+            onClick={handleAddMoreItems}
+          >
             Добавить
           </button>
         )}
-      </div>
-      {showAddButton && itemsToShow.length >= 3 && (
-        <button
-          className="cart-add-button fixed-position"
-          onClick={handleAddMoreItems}
-        >
-          Добавить
-        </button>
-      )}
-      <div className="cart-total-amount">
-        <span>Итого</span>
-        <span>{totalAmount}</span>
-      </div>
-      <div className="cart-action-button-wrapper">
-        <button
-          onClick={handleOrderAction}
-          className="cart-action-button"
-          disabled={isActionButtonDisabled}
-        >
-          {actionButtonText}
-        </button>
+        <div className="cart-total-amount">
+          <span>Итого</span>
+          <span>{totalAmount}</span>
+        </div>
+        <div className="cart-action-button-wrapper">
+          <button
+            onClick={handleOrderAction}
+            className="cart-action-button"
+            disabled={isActionButtonDisabled}
+          >
+            {actionButtonText}
+          </button>
+        </div>
       </div>
     </div>
   );
